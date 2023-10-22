@@ -1,0 +1,210 @@
+{% extends 'theme1/base.html' %} {% load static i18n fa_calendar humanize shop_tools %}
+{% block title %}{% trans 'support' %}{% endblock %}
+{% block extra_head %}
+<style>
+   /* Chat containers */
+.message-container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Darker chat container */
+.user_reply {
+  border-color: #ccc !important;
+  background-color: #ddd !important;
+}
+
+/* Clear floats */
+.message-container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Style time text */
+.time {
+  float: right;
+  color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+  float: left;
+  color: #999;
+} 
+</style>
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="cart-page-content col-12 order-1 mb-2">
+                <h3>{% trans 'support' %}</h3>
+                <section id="support">
+                  <div class="container">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-12 mt-4">
+                            {% if show_ticket %}
+                            <form id="ticket-form" method="post">
+                                {% csrf_token %}
+                                <label for="ticket_category">{% trans 'category' %}</label>
+                                <select class="form-control mb-2" id="ticket_category" id="" name="ticket_category">
+                                    {% for cat in ticket_category %}
+                                    <option>
+                                        {{cat}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <label for="ticket_subject">{% trans 'title' %}</label>
+                                <input id="ticket_subject" name="ticket_subject" type="text" class="form-control mb-2" required>
+                                <label for="ticket_content">{% trans 'content' %}</label>
+                                <textarea rows="7" id="ticket_content" name="ticket_content" type="text" class="form-control mb-2" required></textarea>
+                                <input type="submit" class="btn btn-success form-control" value="{% trans 'submit' %}">
+                            </form>
+                            {% else %}
+                            <div class="alert alert-success" role="alert">
+                              {% trans 'your ticket has been submitted' %}
+                            </div>
+                            {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+            </div>
+            {% if tickets %}
+            <div class="cart-page-content col-12 order-2 mt-5 mb-5 px-5">
+              <div class="cart-page-title">
+                  <h5>{% trans 'tickets' %}</h5>
+              </div>
+              <div class="table-responsive checkout-content default">
+                  <table class="table" style="margin-bottom: 0px;">
+                      <tbody style="text-align: center;">
+                        <tr>
+                          <th>{% trans 'title' %}</th>
+                          <th>{% trans 'category' %}</th>
+                          <th>{% trans 'status' %}</th>
+                          <th>{% trans 'creation date' %}</th>
+                          <th></th>
+                        </tr>
+                          {% for ticket in tickets %}
+                          <tr class="checkout-item" style="border-bottom: 1px solid #eaeaea;">
+                              <td>
+                                  <span>{{ticket.title}}</span>
+                              </td>
+                              <td>
+                                  <span>{{ticket.category}}</span>
+                              </td>
+                              <td>
+                                  <span>{{ticket.status}}</span>
+                              </td>
+                              <td>
+                                  <span>{{ticket.creation_date|jalali_by_weekday_and_time}}</span>
+                              </td>
+                              <td>
+                                  <span class="replies" style="cursor:pointer; color:blue;" data-id="{{ticket.id}}">{% trans 'replies' %}</span>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          {% endif %}
+        </div>
+    </div>
+</main>
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content py-5 px-5">
+      <div class="messages"></div>
+      <form id="new-ticket-form" method="post">
+        <span>{% trans 'reply' %}:</span>
+        {% csrf_token %}
+        <textarea rows="7" id="new_ticket_content" name="ticket_content" type="text" class="form-control mb-2" required></textarea>
+        <input type="submit" class="btn btn-success form-control" value="{% trans 'submit' %}">
+        <input id="ticket_id" name="ticket_id" type="hidden" value="">
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $(document).ready(function () {
+    {% if not show_ticket %}
+    setTimeout(() => {
+      location.href = "{% url 'support_page' %}";
+    }, 2000);
+    {% endif %}
+    function create_message(element) {
+      $(".messages").append('<div class="message-container" id="' + element.pk + '"><p>' + element.fields.content.replaceAll('\n', '<br/>') + '</p><span class="time">' + new Date(element.fields.creation_date).toLocaleString('fa-IR', { timeZone: "Asia/Tehran" }) + '</span></div>')
+      if (element.fields.is_support_answer){
+        $("#"+element.pk).addClass("support_reply")
+      } else {
+        $("#"+element.pk).addClass("user_reply")
+      }
+    }
+    $(".replies").on("click",function(){
+      var ticket_id = $(this).data("id");
+      $.ajax({
+            url: "/ticket-followups/",
+            dataType: "json",
+            type: "Post",
+            async: true,
+            headers: {
+               'X-CSRFToken': csrftoken
+            },
+            data: {
+               "ticket_id": ticket_id,
+            },
+            success: function(data) {
+               if (data["success"]) {
+                $(".messages").html('<div class="message-container user_reply"><p>' + JSON.parse(data["success"]["ticket"])[0]["fields"].content.replaceAll('\n', '<br/>') + '</p><span class="time">' + new Date(JSON.parse(data["success"]["ticket"])[0]["fields"].creation_date).toLocaleString('fa-IR', { timeZone: "Asia/Tehran" }) + '</span></div>')
+                $("#ticket_id").val(JSON.parse(data["success"]["ticket"])[0]["pk"])
+                console.log(JSON.parse(data["success"]["ticket"])[0]["fields"]["status"])
+                if (JSON.parse(data["success"]["ticket"])[0]["fields"]["status"]==6){
+                  $("#new-ticket-form").hide()
+                }
+                else{
+                  $("#new-ticket-form").show()
+                }
+                var info = JSON.parse(data["success"]["followups"])
+                info.forEach(element => create_message(element));
+                $(".support_reply").prepend("<span class='py-5'>" + "{% trans 'support' %}:" + "</span>")
+                $(".modal").modal("show");
+               } else if (data["error"]){
+                console.log(data["error"])
+               }
+            },
+            error: function(xhr, exception) {
+               var msg = "";
+               if (xhr.status === 0) {
+                  msg = "Not connect.\n Verify Network." + xhr.responseText;
+               } else if (xhr.status == 404) {
+                  msg = "Requested page not found. [404]" + xhr.responseText;
+               } else if (xhr.status == 500) {
+                  msg = "Internal Server Error [500]." + xhr.responseText;
+               } else if (exception === "parsererror") {
+                  msg = "Requested JSON parse failed.";
+               } else if (exception === "timeout") {
+                  msg = "Time out error." + xhr.responseText;
+               } else if (exception === "abort") {
+                  msg = "Ajax request aborted.";
+               } else {
+                  msg = "Error:" + xhr.status + " " + xhr.responseText;
+               }
+               console.log(msg)
+
+            }
+      });
+    })
+  });
+
+  </script>
+{% endblock %}

@@ -1,0 +1,21 @@
+.row figure {
+    display: flex;
+    flex-flow: column-reverse;
+    padding: 5px;
+    width: auto;
+    margin: 7px;
+}
+
+.row figure img {
+   margin:auto;
+   padding:auto;
+   border-radius: 10px;
+   box-shadow: rgb(101, 101, 101) 3px 3px 10px;
+}
+
+.row figure figcaption {
+   color: rgb(19, 7, 122);
+   font: italic smaller sans-serif;
+   padding: 3px;
+   text-align: center;
+}

@@ -1,0 +1,37 @@
+{% extends 'theme1/base.html' %} {% load static i18n fa_calendar humanize crispy_forms_tags %}
+{% block title %}{% trans 'shipping address' %}{% endblock %}
+{% block extra_head %}
+<link href="{% static 'theme1/style/toastr.min.css' %}" rel="stylesheet">
+<style>
+   #toast-container > .toast-success {
+      background-color: #198754;
+   }
+   #toast-container > .toast-error {
+      background-color: #ff0f0f;
+   }
+   #toast-container > .toast-info {
+      background-color: #0000ff;
+   }
+</style>
+{% endblock %}
+{% block content %}
+<div>
+    <h6 style="border-bottom: 2px solid black; padding-bottom: 17px; margin-bottom: 30px; margin-top: 30px;"><span style="border-radius: 7px 7px 0 0; color: white; background-color: gray; padding: 14px; margin-bottom: 30px;" >اطلاعات پستی</span></h6>
+</div>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{shipping_address_form|crispy}}
+    <button class="btn btn-success btn-lg my-4" type="submit">{% trans 'save' %}</button>
+</form>
+
+<script src="{% static 'theme1/js/toastr.min.js' %}"></script>
+<script>
+    {% for message in messages %}
+        {% if message.tags == "error" %}
+            toastr.error("", "{{ message }}", {positionClass: 'toast-bottom-right'});
+        {% else %}
+            toastr.success("", "{{ message }}", {positionClass: 'toast-bottom-right'});
+        {% endif %}
+    {% endfor %}
+</script>
+{% endblock %}

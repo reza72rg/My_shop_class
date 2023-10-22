@@ -1,0 +1,649 @@
+{% extends 'base.html' %} {% load i18n static tags fa_calendar humanize shop_tools %}
+{% block title %}{{product.title}}{% endblock %}
+{% block extra_head %}
+<meta property="og:title" content="{{ product.title }}" />
+<meta property="og:description" content="{{ product.description|truncatewords:'15' }}" />
+<meta name="keywords" content="{{ product.meta_keywords }}">
+{% if product.image %}<meta property="og:image" content="{{request.scheme}}://{{request.get_host}}{{ product.image.url }}"/>{% endif %}
+<link href="{% static 'theme1/style/toastr.min.css' %}" rel="stylesheet">
+<link href="{% static 'theme1/style/product.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'theme1/style/jquery.fancybox.min.css' %}" />
+<link href="{% static 'theme1/style/owl.carousel.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'theme1/style/owl.theme.default.css' %}" rel="stylesheet" type="text/css">
+<style>
+   a :hover{
+      text-decoration: none !important;
+   }
+   #toast-container > .toast-success {
+      background-color: #198754;
+   }
+   #toast-container > .toast-error {
+      background-color: #ff0f0f;
+   }
+   #toast-container > .toast-info {
+      background-color: #0000ff;
+   }
+   a.show.active {
+      background-color: #fff9e7;
+   }
+   .fill {
+      color: transparent;
+      transition: color 0.25s;
+      stroke: black;
+      /* The stroke width is huge because the svg itself is ~512x512, which is then scaled down */
+      stroke-width: 50px;
+   }
+   .liked {
+      color: red;
+   }
+   .form-check-label {
+      cursor: pointer;
+   }
+   .img-sm {
+      width: 46px;
+      height: 46px;
+   }
+
+   .panel {
+      box-shadow: 0 2px 0 rgba(0,0,0,0.075);
+      border-radius: 0;
+      border: 0;
+      margin-bottom: 15px;
+   }
+
+   .panel .panel-footer, .panel>:last-child {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+   }
+
+   .panel .panel-heading, .panel>:first-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+   }
+
+   .panel-body {
+      padding: 25px 20px;
+   }
+
+
+   .media-block .media-left {
+      display: block;
+      float: left
+   }
+
+   .media-block .media-right {
+      float: right
+   }
+
+   .media-block .media-body {
+      display: block;
+      overflow: hidden;
+      width: auto
+   }
+
+   .middle .media-left,
+   .middle .media-right,
+   .middle .media-body {
+      vertical-align: middle
+   }
+
+   .thumbnail {
+      border-radius: 0;
+      border-color: #e9e9e9
+   }
+
+   .tag.tag-sm, .btn-group-sm>.tag {
+      padding: 5px 10px;
+   }
+
+   .tag:not(.label) {
+      background-color: #fff;
+      padding: 6px 12px;
+      border-radius: 2px;
+      border: 1px solid #cdd6e1;
+      font-size: 12px;
+      line-height: 1.42857;
+      vertical-align: middle;
+      -webkit-transition: all .15s;
+      transition: all .15s;
+   }
+   .text-muted, a.text-muted:hover, a.text-muted:focus {
+      color: #acacac;
+   }
+   .text-sm {
+      font-size: 0.9em;
+   }
+   .text-5x, .text-4x, .text-5x, .text-2x, .text-lg, .text-sm, .text-xs {
+      line-height: 1.25;
+   }
+
+   .btn-trans {
+      background-color: transparent;
+      border-color: transparent;
+      color: #929292;
+   }
+
+   .btn-icon {
+      padding-left: 9px;
+      padding-right: 9px;
+   }
+
+   .btn-sm, .btn-group-sm>.btn, .btn-icon.btn-sm {
+      padding: 5px 10px !important;
+   }
+
+   .mar-top {
+      margin-top: 15px;
+   }
+   .svg-inline--fa.fa-stack-2x {
+      height:1em;
+      width:1.25em
+   }
+   .item-rate {
+      height: 30px;
+      cursor: pointer;
+   }
+   div .rating-star-comment > .item-rate {
+      height: 25px;
+      cursor: default;
+   }
+   .rating-star-comment{
+      margin: 5px;
+      padding: 5px;
+   }
+   .media-body-admin-comment{
+      border-radius: 8px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3);
+      background: #eeeeee;
+      padding: 0px 10px 10px 10px;
+      border: none;
+      margin-bottom: 15px;
+   }
+   .star-rating {
+      display: inline-flex;
+      align-items: center;
+      font-size: 1em;
+      justify-content: center;
+   }
+   .back-stars {
+      display: flex;
+      color: #919191;
+      position: relative;
+      text-shadow: 4px 4px 10px #727272;
+   }
+   .front-stars {
+      display: flex;
+      color: #FFBC0B;
+      overflow: hidden;
+      position: absolute;
+      text-shadow: 2px 2px 5px #d29b09;
+      top: 0;
+      transition: all .5s
+   }
+   .single-tabs .tab-content span::before {
+      content: none;
+   }
+   .dk-btn{
+      font-size: 1.1rem;
+      padding: 18px 50px;
+   }
+</style>
+{% endblock %}
+{% block content %}  
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <div class="single-box">
+            <div class="row">
+               <div class="col-md-7">
+                  <div style="padding-top: 15px; direction: rtl;" class="row">
+                     <div class="col-lg-6 col-12 mt-3" style="text-align: start;">
+                        <h6>
+                        {{product.title}}
+                        </h6>
+                     </div>
+                     <div class="col-lg-2 col-md-4 col-3 mt-3" style="text-align: center;">
+                        <a href="/compare/{{product.id}}" class="selenium-next-step-shipping" style="font-size: 0.9rem;">
+                           <i class="fas fa-code-compare"></i>
+                           {% trans 'compare' %}
+                        </a>
+                     </div>
+                     <div class="col-lg-3 col-6 mt-3" style="align-items: center; text-align: center;">
+                        <div class="star-rating" style="direction: ltr;">
+                           <div class="back-stars" style="direction: ltr;">
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                              
+                              <div class="front-stars" style="width: {% widthratio product_rating 1 20 %}%; direction: ltr;">
+                                 <i class="fa fa-star" aria-hidden="true"></i>
+                                 <i class="fa fa-star" aria-hidden="true"></i>
+                                 <i class="fa fa-star" aria-hidden="true"></i>
+                                 <i class="fa fa-star" aria-hidden="true"></i>
+                                 <i class="fa fa-star" aria-hidden="true"></i>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <span style="text-align: center; font-size: small;">
+                           {% trans 'rating' %}: {{product_rating}}
+                        </span>
+                     </div>
+                     {% if user.is_authenticated %}
+                     <div class="col-lg-1 col-md-2 col-3 mt-3" style="text-align: center;">
+                        <i id="favorite" style="text-align: center; cursor: pointer;" class="fa {% if is_favorite %}liked{% endif %} fa-heart fill" style="margin-left: 8px; cursor: pointer; float: left;" aria-hidden="true"></i>
+                     </div>
+                     {% endif %}
+                  </div>
+                  <hr>
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="single-content-right">
+                           <ul>
+                              {% if product.brand %}
+                              <li style="line-height: 30px;">{% trans 'brand' %} : <a style="color: #0e4887;" href="/brand/{{product.brand.title|slugish}}/">{{product.brand}}</a></li>
+                              {% endif %}
+                              <li style="line-height: 30px;">{% trans 'category' %} : <a style="color: #0e4887;" href="/category/{{product.category.title | slugish}}/">{{product.category}}</a></li>
+                           </ul>
+                           <br>
+                          <!-- <span style="line-height: 30px;">{% trans 'brief description' %} : </span><br> -->
+                           <ul class="product-ul">
+                              <li></li>
+                              <li>{{product.description|linebreaks}}</li>
+                           </ul>
+                        </div>
+                     </div>
+                     <div class="col-12">
+                        <div class="single-content-left">
+                           <ul>
+                              {% if product.count %}
+                              <span style="color: #069754">{% trans 'available' %}</span>
+                              {% else %}
+                              <span>{% trans 'status' %} : {% trans 'unavailable' %}</span>
+                              {% endif %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                     <div class="col">
+                        <form id="options_radio">
+                           {% for option in options %}
+                           {% if option.is_active %}
+                           <div class="form-check form-check-inline" style="margin-bottom: 10px;">
+                              <input class="form-check-input" type="radio" id="{{option.id}}" name="monetary_options_radio" data-id="{{option.id}}" data-count="{{option.count}}" value="{{option.price}}">
+                              <label class="form-check-label" for="{{option.id}}" value="{{option.price}}">
+                                 {{option.option}}
+                              </label>
+                           </div>
+                           {% endif %}
+                           {% endfor %}
+                        </form>
+                     </div>
+                  </div>
+                  <hr>
+                  <h3><span id="product_price">{{price|intcomma:False|to_persian_number}}</span>{% if additional %}<span id="additional" style="text-decoration: line-through; margin-left: 15px; font-size: 22px; color: gray;">{{additional|intcomma:False|to_persian_number}}</span>{% endif %}<span>&nbsp;تومان</span></h3>
+                  <div class="row justify-content-center">
+                     <div class="col justify-content-center" style="display: flex;">
+                         {% for o in options %}
+                             {{ o.option }}
+                             <br />
+                         {% endfor %}
+                     </div>
+                  </div>
+                  <div class="row justify-content-center">
+                     <div class="col justify-content-center" style="display: flex;">
+                        <a href="javascript:void(0)" class="selenium-next-step-shipping">
+                           <div class="parent-btn continue-payment justify-content-center">
+                              {% if user.is_authenticated %}
+                              <button id="add_to_cart" class="dk-btn dk-btn-info">
+                                 <i class="fa fa-cart-plus"></i>
+                                 {% trans 'add to cart' %}
+                              </button>
+                              {% else %}
+                              <button style="padding: 18px 28px !important;" id="goto_login" class="dk-btn dk-btn-info">
+                                 <i class="fa fa-cart-plus"></i>
+                                 {% trans 'login' %} / {% trans 'add to cart' %}
+                              </button>
+                              {% endif %}
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-5">
+                  <div class="single-img">
+                     <figure>
+                        {% if product.image %}
+                        <img id="main_image" src="{{product.image.url}}" class="w-100 s-img" data-zoom-image="{{product.image.url}}">
+                        {% else %}
+                        <img id="main_image" src="{% static 'theme1/img/default.png' %}" class="w-100 s-img" data-zoom-image="{% static 'theme1/img/default.png' %}">
+                        {% endif %}
+                     </figure>
+                  </div>
+                  <div class="single-img-slider">
+                     <div class="owl-carousel owl-theme ov-single">
+                        <div class="item">
+                           {% if product.image %}
+                           <a style="cursor: pointer;" class="product-image" data-src="{{product.image.url}}" data-fancybox="gallery"><img src="{{product.image.url}}" class="w-100"></a>
+                           {% else %}
+                           <a style="cursor: pointer;" class="product-image" data-src="{% static 'theme1/img/default.png' %}" data-fancybox="gallery"><img src="{% static 'theme1/img/default.png' %}" class="w-100"></a>
+                           {% endif %}
+                        </div>
+                        {% for image in images %}
+                        <div class="item">
+                           <a style="cursor: pointer;" class="product-image" data-src="{{image.image.url}}" data-fancybox="gallery"><img src="{{image.image.url}}" class="w-100"></a>
+                        </div>
+                        {% endfor %}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!---------------------------------->
+{% if products %}
+<div class="container">
+   <span class="releated-products">{% trans 'related products' %}</span>
+   <hr>
+   <div class="row">
+      <div class="col-md-12">
+         <div class="single-two-slider">
+            <div id="owl" class="owl-carousel owl-theme ov-single-two">
+               {% for item in products %}
+               <div class="item">
+                  <figure>
+                     <a href="/product/{{item.id}}">
+                        {% if item.image %}
+                        <img src="{{item.image.url}}" class="w-100" />
+                        {% else %}
+                        <img src="{% static 'theme1/img/default.png' %}" class="w-100" />
+                        {% endif %}
+                     </a>
+                  </figure>
+                  <h5 style="cursor: default;">{{item.title}}</h5>
+                  {%  comment %}
+                  {% product_discount item as pd %}
+                  <span {% if pd %}style="text-decoration: line-through; font-size: 14px; color: gray;"{% else %}style="color: #7c0002;"{% endif %}>{{item.price|intcomma:False|to_persian_number}} {% get_currency %}</span>
+                  {% if pd %}
+                  <br>
+                  <span style="color: #7c0002;">{{pd}} {% get_currency %}</span>
+                  {% endif %}
+                  {%  endcomment %}
+               </div>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+<!---------------------------------->
+<div class="container">
+   <div class="row">
+      <div class="col-md-12 px-md-3 px-0">
+         <div class="single-tabs px-md-3 px-0">
+            <ul class="nav nav-tabs">
+               <li style="line-height: 50px;"><a  class="active show" style="color: #959189;" data-toggle="tab" href="#one"><i class="fa fa-file" style="margin-left: 5px;"></i>{% trans 'product properties' %}</a></li>
+               <li style="line-height: 50px;"><a style="color: #959189;" data-toggle="tab" href="#two"><i class="fa fa-pencil" style="margin-left: 5px;"></i>{% trans 'comments' %}</a></li>
+            </ul>
+            <div class="tab-content px-md-3 px-0">
+               <div id="one" class="tab-pane fade active show px-md-3 px-0">
+                  {% for property in properties %}
+                  <p class="bg-light"><span>{{property.title}}:</span>{{property.value}}</p>
+                  {% empty %}
+                  {% trans 'there are no properties for this product' %}
+                  {% endfor %}
+               </div>
+               <div id="two" class="tab-pane fade px-md-3 px-0">
+                  <div class="container bootdey px-md-3 px-0">
+                     <div class="col-md-12 bootstrap">
+                        {% if user.is_authenticated %}
+                        <div class="panel px-md-3 px-0">
+                           <div class="panel-body">
+                              <form method="post">
+                                 {% csrf_token %}
+                                 <div class="rating-star mb-3"
+                                    data-value="5" style="direction: ltr;">
+                                 </div>
+                                 <textarea name="comment_text" class="form-control" rows="2" placeholder="{% trans 'add your comment ...' %}"></textarea>
+                                 <div class="mar-top clearfix">
+                                    <button id="submit" class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> {% trans 'submit' %}</button>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                        {% endif %}
+                        {% if comments %}
+                        <div class="panel">
+                           <div class="panel-body">
+                              <div class="media-block">
+                                 {% for comment in comments %}
+                                 <div class="media-body">
+                                    <div class="mar-btm">
+                                       <!-- <a href="#" class="btn-link text-semibold media-heading box-inline">Lisa D.</a> -->
+                                       <div class="rating-star-comment"
+                                          data-value="{{comment.rating}}" style="direction: ltr;">
+                                       </div>
+                                    </div>
+                                    {{ comment.user_comment|linebreaks }}
+                                    <span class="text-muted text-sm" style="border-top: solid 2px rgba(0,0,0,.1); width140px; padding-top: 10px; font-size: 11px; width: 120px;">{{comment.create_date|miladi_to_shamsi3}}</span>
+                                 </div>
+                                 {% if comment.admin_comment %}
+                                 <div class="media-body-admin-comment ml-lg-4 ml-sm-3 ml-2">
+                                    <div class="mar-btm">
+                                       <p style="font-size: 16px;">{% trans 'Admin' %}:</p>
+                                    </div>
+                                    {{ comment.admin_comment|linebreaks }}
+                                    <span class="text-muted text-sm" style="border-top: solid 2px rgba(0,0,0,.1); padding-top: 10px; font-size: 11px; width: 120px;">{{comment.modify_date|miladi_to_shamsi3}}</span>
+                                 </div>
+                                 {% endif %}
+                                 <hr>
+                                 {% endfor %}
+                              </div>
+                           </div>
+                        </div>
+                        {% endif %}
+                     </div>
+                  </div>
+                  {% if not comments %}
+                  {% trans 'there are no comments for this product' %}
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!---------------------------------->
+<script src="{% static 'theme1/js/toastr.min.js' %}"></script>
+<script src="{% static 'theme1/js/jquery-3.3.1.js' %}" type="text/javascript"></script>
+<script src="{% static 'theme1/js/jquery.simple.timer.js' %}" type="text/javascript"></script>
+<script src="{% static 'theme1/js/bootstrap.js' %}" type="text/javascript"></script>
+<script src="{% static 'theme1/js/owl.carousel.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'theme1/js/js.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/hillRate-jquery.js' %}" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+      $('.rating-star').hillRate({
+         stars: 5,
+         nameInput: "rating",
+         imageStar: {"default": '{% static "img/star-empty-gold.png" %}', "full": '{% static "img/star-full-gold.png" %}', "half": '{% static "img/star-half-gold.png" %}'},
+         valuesStar: [1, 2, 3, 4, 5],
+      });
+      $('.rating-star-comment').hillRate({
+         stars: 5,
+         imageStar: {"default": '{% static "img/star-empty-gold.png" %}', "full": '{% static "img/star-full-gold.png" %}', "half": '{% static "img/star-half-gold.png" %}'},
+         valuesStar: [1, 2, 3, 4, 5],
+         edit: false,
+      });
+      {% if message %}
+      toastr.success("","{{message}}",{positionClass: 'toast-bottom-right'})
+      {% endif %}
+         $("#add_to_cart").click(function(){
+             $(".cart-icon").addClass("puls");
+         });
+
+        $('.cart-icon').on("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
+             $(this).removeClass("puls");
+        });
+      String.prototype.toEnDigit = function() {
+         return this.replace(/[\u06F0-\u06F9]+/g, function(digit) {
+            var ret = '';
+            for (var i = 0, len = digit.length; i < len; i++) {
+                  ret += String.fromCharCode(digit.charCodeAt(i) - 1728);
+            }
+
+            return ret;
+         });
+      };
+
+      String.prototype.toPersianDigits= function(){
+        var id= ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+        return this.replace(/[0-9]/g, function(w){
+            return id[+w]
+        });
+      }
+
+      // first time initial
+      // selected_value = $("input[name='monetary_options_radio']:checked").val();
+      // {% if options %}
+      // final_price = {{price}} + parseInt(selected_value);
+      // {% else %}
+      // final_price = {{price}};
+      // {% endif %}
+      // $("#product_price").text(final_price.toLocaleString().toPersianDigits());
+      if ($("input[name='monetary_options_radio']").is(':checked')){
+         if ($("input[name='monetary_options_radio']:checked").data("count") == 0){
+            $("#add_to_cart").prop("disabled", true)
+            $("#add_to_cart").html("<span style='font-size:16px;' class='fa-stack fa-lg'><i class='fas fa-cart-plus fa-stack-1x'></i><i class='fas fa-ban fa-stack-2x'></i></span> {% trans 'unavailable' %}")
+         } else if ($("input[name='monetary_options_radio']:checked").data("count") != 0){
+            $("#add_to_cart").prop("disabled", false)
+            $("#add_to_cart").html("<i class='fa fa-cart-plus'></i> {% trans 'add to cart' %}")
+         }
+      }
+      $('#options_radio').change(function(){
+         $("#add_to_cart").prop("disabled", false)
+         selected_value = $("input[name='monetary_options_radio']:checked").val();
+         final_price = {{price}} + parseInt(selected_value);
+         additional_price = {{additional}} + parseInt(selected_value);
+         $("#product_price").text(final_price.toLocaleString().toPersianDigits());
+         $("#additional").text(additional_price.toLocaleString().toPersianDigits());
+         if ($("input[name='monetary_options_radio']:checked").data("count") == 0){
+            $("#add_to_cart").prop("disabled", true)
+            $("#add_to_cart").html("<span style='font-size:16px;' class='fa-stack fa-lg'><i class='fas fa-cart-plus fa-stack-1x'></i><i class='fas fa-ban fa-stack-2x'></i></span> {% trans 'unavailable' %}")
+         } else if ($("input[name='monetary_options_radio']:checked").data("count") != 0){
+            $("#add_to_cart").prop("disabled", false)
+            $("#add_to_cart").html("<i class='fa fa-cart-plus'></i> {% trans 'add to cart' %}")
+         }
+      });
+      
+      $('.product-image').click(function(){
+         var selected = $(this).data('src')
+         if (selected != $('#main_image').attr('src')){
+            $('#main_image').fadeOut('fast', function () {
+               $('#main_image').attr('src', selected);
+               $('#main_image').fadeIn('fast');
+            });
+         }
+      })
+      $('#goto_login').click(function(){
+         window.location = "/login/";
+      });
+      $('#add_to_cart').click(function(){
+         $.ajax({
+            url: "{% url 'eshop:add_cart_item' %}",
+            dataType: "json",
+            type: "Post",
+            async: true,
+            headers: {
+               'X-CSRFToken': csrftoken
+            },
+            data: {
+               "product_id": {{product.id}},
+               {% if options %}
+               "option_id": $("input[name='monetary_options_radio']:checked").data('id'),
+               {% endif %}
+            },
+            success: function(data) {
+               if (data["error"]) {
+                  toastr.error("",data["error"],{positionClass: 'toast-bottom-right'})
+               } else if (data["success"]) {
+                  $(".cart-icon").addClass("puls");
+                  $("#cart_count").html((parseInt($("#cart_count").html().toEnDigit()) + 1).toString().toPersianDigits())
+                  toastr.success("",data["success"],{positionClass: 'toast-bottom-right'})
+               }
+            },
+            error: function(xhr, exception) {
+               var msg = "";
+               if (xhr.status === 0) {
+                  msg = "Not connect.\n Verify Network." + xhr.responseText;
+               } else if (xhr.status == 404) {
+                  msg = "Requested page not found. [404]" + xhr.responseText;
+               } else if (xhr.status == 500) {
+                  msg = "Internal Server Error [500]." + xhr.responseText;
+               } else if (exception === "parsererror") {
+                  msg = "Requested JSON parse failed.";
+               } else if (exception === "timeout") {
+                  msg = "Time out error." + xhr.responseText;
+               } else if (exception === "abort") {
+                  msg = "Ajax request aborted.";
+               } else {
+                  msg = "Error:" + xhr.status + " " + xhr.responseText;
+               }
+               console.log(msg)
+
+            }
+      });
+      })
+
+      $(document).on("click","#favorite",function(){
+         $.ajax({
+            url: "/toggle-favorite/{{product.id}}/",
+            dataType: "json",
+            type: "Post",
+            async: true,
+            headers: {
+               'X-CSRFToken': csrftoken
+            },
+            success: function(data) {
+               if (data["error"]) {
+                  toastr.error("",data["error"],{positionClass: 'toast-bottom-right'})
+               } else if (data["success"]) {
+                  $("#favorite").toggleClass("liked");
+                  toastr.success("",data["success"],{positionClass: 'toast-bottom-right'})
+               }
+            },
+            error: function(xhr, exception) {
+               var msg = "";
+               if (xhr.status === 0) {
+                  msg = "Not connect.\n Verify Network." + xhr.responseText;
+               } else if (xhr.status == 404) {
+                  msg = "Requested page not found. [404]" + xhr.responseText;
+               } else if (xhr.status == 500) {
+                  msg = "Internal Server Error [500]." + xhr.responseText;
+               } else if (exception === "parsererror") {
+                  msg = "Requested JSON parse failed.";
+               } else if (exception === "timeout") {
+                  msg = "Time out error." + xhr.responseText;
+               } else if (exception === "abort") {
+                  msg = "Ajax request aborted.";
+               } else {
+                  msg = "Error:" + xhr.status + " " + xhr.responseText;
+               }
+               console.log(msg)
+
+            }
+      });
+      })
+
+   });
+
+
+</script>
+{% endblock %}

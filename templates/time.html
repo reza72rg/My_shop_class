@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>time</title>
+</head>
+<body>
+{% include "includes/header.html" %}
+<center>
+    <h2>
+        <b>
+        {% if not add_hour == "" %}
+            {{add_hour}} <br/><br/>
+        {% endif %}
+            It is now:</b> {{l_time}}
+    </h2>
+
+    <div>
+
+        {% for name in names %}
+        <h5>{{name}}</h5>
+        {% endfor %}
+
+    </div>
+
+
+    <div>
+        {{multiline_text|date:"Y, "}}
+    </div>
+</center>
+</body>
+</html>

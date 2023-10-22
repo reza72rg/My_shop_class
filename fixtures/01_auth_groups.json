@@ -1,0 +1,1 @@
+[{"model": "auth.group", "pk": 1, "fields": {"name": "eshop_admin", "permissions": []}}, {"model": "auth.group", "pk": 2, "fields": {"name": "readonly_user", "permissions": []}}]

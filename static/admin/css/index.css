@@ -1,0 +1,108 @@
+.card {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.75rem;
+    margin-top: 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.card-header {
+    padding: 0.5rem 1rem !important;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 0 solid rgba(0, 0, 0, 0.125);
+}
+
+.card-icon {
+    fill: currentColor;
+    stroke: none;
+    padding: 10px;
+    border-radius: 0.75rem;
+    width: 64px;
+    height: 64px;
+    margin-top: -32px;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(64 64 64 / 40%) !important;
+}
+
+.card-footer {
+    background-color: white;
+}
+
+.card-icon-bg-black {
+    background-image: linear-gradient(195deg, #42424a 0%, #191919 100%);
+    color: white;
+}
+
+.card-icon-bg-orange {
+    background-image: linear-gradient(195deg, #ff7b36 0%, #ff7b36 100%);
+    color: white;
+}
+
+.card-icon-bg-green {
+    background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+    color: white;
+}
+
+.card-icon-bg-pink {
+    background-image: linear-gradient(195deg, #EC407A 0%, #D81B60 100%);
+    color: white;
+}
+
+.card-icon-bg-blue {
+    background-image: linear-gradient(195deg, #49a3f1 0%, #1A73E8 100%);
+    color: white;
+}
+
+hr:not([size]) {
+    height: 0px;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box !important;
+}
+
+.bg-gradient-primary {
+    background-image: linear-gradient(
+195deg
+, #005d97, #191919);
+}
+
+.card-header:first-child {
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+
+.border-radius-lg {
+    border-radius: 0.5rem;
+}
+
+.ps-3 {
+    padding-right: 1rem!important;
+}
+
+.my-4 {
+    margin-top: 3.5rem!important;
+    margin-bottom: 1.5rem!important;
+}
+
+.p-0 {
+    padding: 0!important;
+}
+
+.mt-n4 {
+    margin-top: -1.5rem!important;
+}
+
+.shadow-primary {
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(30, 145, 233, 0.4) !important;
+}
+
+.fa-2x {
+    vertical-align: -0.7em !important;
+}

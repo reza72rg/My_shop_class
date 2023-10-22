@@ -1,0 +1,954 @@
+# SOME DESCRIPTIVE TITLE.""fuzzy
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# saied <saied.delshad@gmail.com>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-21 09:41+0330\n"
+"PO-Revision-Date: 2023-09-21 09:41+0330\n"
+"Last-Translator: saied <saied.delshad@gmail.com>\n"
+"Language-Team: soomasoft\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+
+#: eshop/__init__.py:3 eshop/models.py:18
+msgid "Toman"
+msgstr "تومان"
+
+#: eshop/__init__.py:4
+msgid "Rials"
+msgstr "ریال"
+
+#: eshop/apps.py:8
+msgid "shop"
+msgstr "فروشگاه"
+
+#: eshop/gateways/melli_gate.py:82
+msgid "payment_internet"
+msgstr "پرداخت اینترنتی"
+
+#: eshop/gateways/melli_gate.py:83
+msgid "Your payment has been submitted successfully."
+msgstr "پرداخت شما با موفقیت ثبت شد"
+
+#: eshop/gateways/melli_gate.py:84
+#, python-format
+msgid "The reference ID is %s."
+msgstr "کد مرجع %s است"
+
+#: eshop/gateways/melli_gate.py:85
+msgid "Your Order has been sent for processing"
+msgstr "سفارش شما در حال پردازش است"
+
+#: eshop/gateways/melli_gate.py:109
+msgid "Error in payment. Result : "
+msgstr "خطا در پرداخت. نتیجه :"
+
+#: eshop/gateways/melli_gate.py:111
+msgid ""
+" If the money has transfered from your account but the order is not "
+"successful, please contact the following phone number"
+msgstr ""
+"اگر مبلغ از حساب شما کسر شد ولی سفارش موفقیت آمیزنبود, لطفا با شماره تلفن "
+"زیر تماس بگیرید"
+
+#: eshop/gateways/melli_gate.py:113 eshop/gateways/melli_gate.py:123
+msgid "Sadad support team: 021-83386"
+msgstr "پشتیبانی سداد: 021-83386"
+
+#: eshop/gateways/melli_gate.py:119
+msgid "You have cancelled the transaction or an error has occurred."
+msgstr "شما تراکنش را لغو کردید و یا خطایی رخ داده است"
+
+#: eshop/gateways/melli_gate.py:121
+msgid ""
+"If the money has transfered from your account but the order is not "
+"successful, please contact the following phone number."
+msgstr ""
+"اگر مبلغ از حساب شما کسر شد ولی سفارش موفقیت آمیزنبود, لطفا با شماره تلفن "
+"زیر تماس بگیرید."
+
+#: eshop/models.py:38
+msgid "order"
+msgstr "ترتیب"
+
+#: eshop/models.py:39 eshop/models.py:62 eshop/models.py:105
+#: eshop/models.py:122 eshop/models.py:140 eshop/models.py:174
+#: eshop/models.py:228 eshop/models.py:380 eshop/models.py:408
+#: eshop/models.py:426 eshop/models.py:505
+#: eshop/templates/theme1/support.html:62
+#: eshop/templates/theme1/support.html:88
+msgid "title"
+msgstr "عنوان"
+
+#: eshop/models.py:40 eshop/models.py:88 eshop/models.py:143
+#: eshop/models.py:510
+msgid "description"
+msgstr "توضیحات"
+
+#: eshop/models.py:41
+msgid "parent"
+msgstr "والد"
+
+#: eshop/models.py:55 eshop/models.py:138
+#: eshop/templates/theme1/product.html:248
+#: eshop/templates/theme1/support.html:54
+#: eshop/templates/theme1/support.html:89
+msgid "category"
+msgstr "دسته بندی"
+
+#: eshop/models.py:56
+msgid "categories"
+msgstr "دسته بندی ها"
+
+#: eshop/models.py:61 eshop/models.py:104 eshop/models.py:327
+#: eshop/models.py:407 eshop/models.py:425
+msgid "code"
+msgstr "کد"
+
+#: eshop/models.py:67 eshop/models.py:451
+#: eshop/templates/theme1/factor.html:147
+#: eshop/templates/theme1/shipp_payment.html:43
+msgid "payment method"
+msgstr "روش پرداخت"
+
+#: eshop/models.py:68 eshop/models.py:106
+msgid "payment methods"
+msgstr "روش های پرداخت"
+
+#: eshop/models.py:79 eshop/models.py:254 eshop/models.py:272
+#: eshop/models.py:343 eshop/models.py:444
+msgid "user"
+msgstr "کاریر"
+
+#: eshop/models.py:80
+msgid "address title"
+msgstr "عنوان آدرس"
+
+#: eshop/models.py:81
+msgid "receiver name and family"
+msgstr "نام و نام خانوادگی گیرنده"
+
+#: eshop/models.py:82
+msgid "phone"
+msgstr "شماره تماس"
+
+#: eshop/models.py:83 eshop/models.py:466
+#: eshop/templates/theme1/factor.html:203
+msgid "state"
+msgstr "استان"
+
+#: eshop/models.py:84 eshop/models.py:467
+#: eshop/templates/theme1/factor.html:211
+msgid "city"
+msgstr "شهر"
+
+#: eshop/models.py:86 eshop/models.py:468
+#: eshop/templates/theme1/factor.html:219
+msgid "address"
+msgstr "آدرس"
+
+#: eshop/models.py:87
+msgid "postcode"
+msgstr "کد پستی"
+
+#: eshop/models.py:98 eshop/templates/shipping_address.html:2
+msgid "shipping address"
+msgstr "آدرس ارسال"
+
+#: eshop/models.py:99
+msgid "shipping addresses"
+msgstr "آدرس های ارسال"
+
+#: eshop/models.py:117 eshop/models.py:460
+#: eshop/templates/theme1/factor.html:123
+#: eshop/templates/theme1/shipp_payment.html:28
+msgid "shipping method"
+msgstr "روش ارسال"
+
+#: eshop/models.py:118 eshop/models.py:149
+msgid "shipping methods"
+msgstr "روش های ارسال"
+
+#: eshop/models.py:132 eshop/models.py:139
+#: eshop/templates/theme1/product.html:246
+msgid "brand"
+msgstr "برند"
+
+#: eshop/models.py:133
+msgid "brands"
+msgstr "برند ها"
+
+#: eshop/models.py:141 eshop/models.py:192
+msgid "image"
+msgstr "تصویر"
+
+#: eshop/models.py:144
+msgid "view"
+msgstr "بازدید"
+
+#: eshop/models.py:145 eshop/models.py:211 eshop/models.py:364
+#: eshop/models.py:445 eshop/models.py:490 eshop/models.py:509
+#: eshop/templates/theme1/factor.html:83
+msgid "price"
+msgstr "قیمت"
+
+#: eshop/models.py:146
+msgid "release date"
+msgstr "تاریخ انتشار"
+
+#: eshop/models.py:147
+msgid "weight"
+msgstr "وزن"
+
+#: eshop/models.py:147 eshop/models.py:507 eshop/models.py:508
+msgid "Grams"
+msgstr "گرم"
+
+#: eshop/models.py:148
+msgid "product count"
+msgstr "موجودی محصول"
+
+#: eshop/models.py:150
+msgid "is featured"
+msgstr "ویژه"
+
+#: eshop/models.py:151
+msgid "min purchase"
+msgstr "حداقل تعداد خرید"
+
+#: eshop/models.py:152
+msgid "max purchase"
+msgstr "حداکثر تعداد خرید"
+
+#: eshop/models.py:153
+msgid "has tax"
+msgstr "مالیات اضافه شود"
+
+#: eshop/models.py:154
+msgid "tax percent"
+msgstr "درصد مالیات"
+
+#: eshop/models.py:155 eshop/models.py:235
+msgid "has value added tax"
+msgstr "مالیات بر ارزش افزوده اضافه شود"
+
+#: eshop/models.py:156
+msgid "keywords"
+msgstr "کلمات کلیدی"
+
+#: eshop/models.py:156
+#| msgid "separate with comma (used in the site's header)"
+msgid "separate with comma (used in the site's header for seo)"
+msgstr "با کاما جدا کنید. (در هدر سایت برای سئو استفاده خواهد شد)"
+
+#: eshop/models.py:166 eshop/models.py:173 eshop/models.py:191
+#: eshop/models.py:209 eshop/models.py:255 eshop/models.py:273
+#: eshop/models.py:309 eshop/models.py:361 eshop/models.py:487
+msgid "product"
+msgstr "محصول"
+
+#: eshop/models.py:167 eshop/models.py:381
+#: eshop/templates/theme1/factor.html:244
+msgid "products"
+msgstr "محصولات"
+
+#: eshop/models.py:175
+msgid "value"
+msgstr "مقدار"
+
+#: eshop/models.py:185
+msgid "product property"
+msgstr "ویژگی محصول"
+
+#: eshop/models.py:186 eshop/templates/theme1/product.html:382
+msgid "product properties"
+msgstr "ویژگی های محصول"
+
+#: eshop/models.py:203
+msgid "product image"
+msgstr "تصویر محصول"
+
+#: eshop/models.py:204
+msgid "product images"
+msgstr "تصاویر محصول"
+
+#: eshop/models.py:210 eshop/models.py:362
+msgid "option"
+msgstr "آپشن"
+
+#: eshop/models.py:212 eshop/models.py:363 eshop/models.py:489
+#: eshop/templates/theme1/factor.html:255
+msgid "count"
+msgstr "تعداد"
+
+#: eshop/models.py:222
+msgid "product monetary option"
+msgstr "ویژگی پولی محصول"
+
+#: eshop/models.py:223
+msgid "product monetary options"
+msgstr "ویژگی های پولی محصول"
+
+#: eshop/models.py:228 eshop/models.py:242 eshop/models.py:243
+msgid "settings"
+msgstr "تنظیمات"
+
+#: eshop/models.py:229
+msgid "site title"
+msgstr "عنوان سایت"
+
+#: eshop/models.py:230
+msgid "site icon"
+msgstr "آیکن سایت"
+
+#: eshop/models.py:231
+msgid "site logo"
+msgstr "لوگوی سایت"
+
+#: eshop/models.py:232
+msgid "contact us"
+msgstr "تماس با ما"
+
+#: eshop/models.py:233
+msgid "product finishing alert"
+msgstr "حداقل تعداد هشدار اتمام محصول"
+
+#: eshop/models.py:234
+msgid "value added tax percent"
+msgstr "درصد مالیات بر ارزش افزوده"
+
+#: eshop/models.py:236
+msgid "soomasoft web service user"
+msgstr "کاربر وب سرویس سوماسافت"
+
+#: eshop/models.py:237
+msgid "soomasoft web service password"
+msgstr "رمز وب سرویس سوماسافت"
+
+#: eshop/models.py:238
+msgid "soomasoft otp number"
+msgstr "کد otp سوماسافت"
+
+#: eshop/models.py:259
+msgid "favorite"
+msgstr "علاقه مندی"
+
+#: eshop/models.py:260 eshop/templates/theme1/base.html:158
+#: eshop/templates/theme1/favorites.html:2
+msgid "favorites"
+msgstr "علاقه مندی ها"
+
+#: eshop/models.py:274 eshop/models.py:280
+msgid "comment"
+msgstr "نظرات"
+
+#: eshop/models.py:275
+msgid "user rating"
+msgstr "امتیاز کاربر"
+
+#: eshop/models.py:276
+msgid "admin comment"
+msgstr "نظر ادمین"
+
+#: eshop/models.py:281 eshop/templates/theme1/product.html:383
+msgid "comments"
+msgstr "نظرات"
+
+#: eshop/models.py:292
+msgid "question"
+msgstr "سوال"
+
+#: eshop/models.py:293
+msgid "answer"
+msgstr "جواب"
+
+#: eshop/models.py:297
+msgid "FAQ"
+msgstr "سوال متداول"
+
+#: eshop/models.py:298 eshop/templates/theme1/base.html:136
+msgid "FAQs"
+msgstr "سوالات متداول"
+
+#: eshop/models.py:310 eshop/models.py:326
+msgid "discount percent"
+msgstr "درصد تخفیف"
+
+#: eshop/models.py:314 eshop/templates/theme1/cart.html:91
+msgid "discount"
+msgstr "تخفیف"
+
+#: eshop/models.py:315
+msgid "discounts"
+msgstr "تخفیفات"
+
+#: eshop/models.py:331 eshop/models.py:344 eshop/models.py:448
+#: eshop/templates/theme1/cart.html:112 eshop/templates/theme1/factor.html:99
+msgid "discount code"
+msgstr "کد تخفیف"
+
+#: eshop/models.py:332
+msgid "discount codes"
+msgstr "کد های تخفیف"
+
+#: eshop/models.py:348 eshop/models.py:360 eshop/templates/theme1/base.html:179
+#: eshop/templates/theme1/cart.html:2 eshop/templates/theme1/cart.html:49
+msgid "cart"
+msgstr "سبد خرید"
+
+#: eshop/models.py:349
+msgid "carts"
+msgstr "سبد های خرید"
+
+#: eshop/models.py:368
+msgid "cart item"
+msgstr "آیتم سبد خرید"
+
+#: eshop/models.py:369
+msgid "cart items"
+msgstr "آیتم های سبد خرید"
+
+#: eshop/models.py:382
+msgid "start date"
+msgstr "تاریخ شروع"
+
+#: eshop/models.py:383
+msgid "end date"
+msgstr "تاریخ پایان"
+
+#: eshop/models.py:390
+msgid "End date should be greater than start date."
+msgstr "تاریخ پایان باید بزرگتر از تاریخ شروع باشد"
+
+#: eshop/models.py:395
+msgid "amazing sale"
+msgstr "فروش شگفت انگیز"
+
+#: eshop/models.py:396
+msgid "amazing sales"
+msgstr "فروش های شگفت انگیز"
+
+#: eshop/models.py:413 eshop/models.py:462
+#: eshop/templates/theme1/factor.html:171
+msgid "shipping status"
+msgstr "وضعیت ارسال"
+
+#: eshop/models.py:414
+msgid "shipping statuses"
+msgstr "وضعیت های ارسال"
+
+#: eshop/models.py:431 eshop/models.py:452
+#: eshop/templates/theme1/factor.html:155
+msgid "payment status"
+msgstr "وضعیت پرداخت"
+
+#: eshop/models.py:432
+msgid "payment statuses"
+msgstr "وضعیت های پرداخت"
+
+#: eshop/models.py:443 eshop/templates/theme1/factor.html:75
+#: eshop/templates/theme1/factors.html:43
+msgid "factor id"
+msgstr "شماره فاکتور"
+
+#: eshop/models.py:446
+msgid "tax"
+msgstr "مالیات"
+
+#: eshop/models.py:447 eshop/templates/theme1/cart.html:99
+#: eshop/templates/theme1/factor.html:91
+msgid "value added tax"
+msgstr "مالیات بر ارزش افزوده"
+
+#: eshop/models.py:449 eshop/templates/theme1/factor.html:107
+msgid "discount price"
+msgstr "مبلغ تخفیف"
+
+#: eshop/models.py:450
+msgid "total products weight"
+msgstr "وزن کل محصولات"
+
+#: eshop/models.py:453 eshop/templates/theme1/factor.html:163
+msgid "payment tracking code"
+msgstr "کد رهگیری پرداخت"
+
+#: eshop/models.py:454
+msgid "payment ID"
+msgstr "شماره پرداخت"
+
+#: eshop/models.py:455
+msgid "reference ID"
+msgstr "کد مرجع"
+
+#: eshop/models.py:456
+msgid "sale reference ID"
+msgstr "کد مرجع فروش"
+
+#: eshop/models.py:457
+msgid "res code"
+msgstr "res code"
+
+#: eshop/models.py:458
+msgid "payment date"
+msgstr "تاریخ پرداخت"
+
+#: eshop/models.py:459 eshop/templates/theme1/factor.html:139
+#: eshop/templates/theme1/factors.html:52
+msgid "final price"
+msgstr "مبلغ نهایی"
+
+#: eshop/models.py:461 eshop/models.py:519
+#: eshop/templates/theme1/factor.html:131
+msgid "shipping cost"
+msgstr "هزینه ارسال"
+
+#: eshop/models.py:463 eshop/templates/theme1/factor.html:179
+msgid "shipping tracking code"
+msgstr "کد رهگیری ارسال"
+
+#: eshop/models.py:464 eshop/templates/theme1/factor.html:187
+msgid "name family"
+msgstr "نام و نام خانوادگی"
+
+#: eshop/models.py:465 eshop/templates/theme1/factor.html:195
+msgid "phone number"
+msgstr "شماره تماس"
+
+#: eshop/models.py:469 eshop/templates/theme1/factor.html:227
+msgid "post code"
+msgstr "کد پستی"
+
+#: eshop/models.py:470 eshop/templates/theme1/factor.html:235
+msgid "customer comment"
+msgstr "یادداشت مشتری"
+
+#: eshop/models.py:474 eshop/models.py:486 eshop/templates/theme1/factor.html:2
+msgid "factor"
+msgstr "فاکتور"
+
+#: eshop/models.py:475 eshop/templates/theme1/base.html:153
+#: eshop/templates/theme1/factors.html:2 eshop/templates/theme1/factors.html:35
+msgid "factors"
+msgstr "فاکتور ها"
+
+#: eshop/models.py:488
+msgid "monetary option"
+msgstr "ویژگی پولی محصول"
+
+#: eshop/models.py:494
+msgid "factor item"
+msgstr "آیتم فاکتور"
+
+#: eshop/models.py:495
+msgid "factor items"
+msgstr "آیتم های فاکتور"
+
+#: eshop/models.py:506
+msgid "destination states"
+msgstr "استان های مقصد"
+
+#: eshop/models.py:507
+msgid "from weight"
+msgstr "از وزن"
+
+#: eshop/models.py:508
+msgid "to weight"
+msgstr "تا وزن"
+
+#: eshop/models.py:520
+msgid "shipping costs"
+msgstr "هزینه های ارسال"
+
+#: eshop/models.py:524
+msgid "mobile verification uuid"
+msgstr "کد تایید موبایل"
+
+#: eshop/models.py:525
+msgid "mobile"
+msgstr "شماره همراه"
+
+#: eshop/models.py:526
+msgid "activation code"
+msgstr "کد فعالسازی"
+
+#: eshop/models.py:535
+msgid "sms verification"
+msgstr "پیامک ورود"
+
+#: eshop/models.py:536
+msgid "sms verifications"
+msgstr "پیامک های ورود"
+
+#: eshop/templates/shipping_address.html:24
+msgid "save"
+msgstr "ذخیره"
+
+#: eshop/templates/theme1/FAQ.html:2
+msgid "frequently asked questions"
+msgstr "سوالات متداول"
+
+#: eshop/templates/theme1/FAQ.html:184
+msgid "Frequently Asked Questions"
+msgstr "سوالات متداول"
+
+#: eshop/templates/theme1/base.html:141
+msgid "search"
+msgstr "جستجو"
+
+#: eshop/templates/theme1/base.html:148
+msgid "profile"
+msgstr "پروفایل"
+
+#: eshop/templates/theme1/base.html:163
+msgid "postal information"
+msgstr "اطلاعات پستی"
+
+#: eshop/templates/theme1/base.html:168 eshop/templates/theme1/support.html:2
+#: eshop/templates/theme1/support.html:45
+#: eshop/templates/theme1/support.html:179
+msgid "support"
+msgstr "پشتیبانی"
+
+#: eshop/templates/theme1/base.html:175
+msgid "sign up/login"
+msgstr "ثبت نام/ورود"
+
+#: eshop/templates/theme1/cart.html:31
+msgid "cart is empty"
+msgstr "سبد خرید خالی است"
+
+#: eshop/templates/theme1/cart.html:35 eshop/templates/theme1/factor.html:62
+#: eshop/templates/theme1/factors.html:21
+msgid "login to your account"
+msgstr "ورود به حساب کاربری"
+
+#: eshop/templates/theme1/cart.html:72
+msgid "one item price"
+msgstr "قیمت واحد"
+
+#: eshop/templates/theme1/cart.html:76
+msgid "total items price"
+msgstr "قیمت کل"
+
+#: eshop/templates/theme1/cart.html:83
+msgid "sum"
+msgstr "مجموع"
+
+#: eshop/templates/theme1/cart.html:110
+msgid "apply"
+msgstr "اعمال"
+
+#: eshop/templates/theme1/cart.html:120
+msgid "payable price"
+msgstr "مبلغ قابل پرداخت"
+
+#: eshop/templates/theme1/cart.html:125
+msgid "shipment cost"
+msgstr "هزینه ارسال"
+
+#: eshop/templates/theme1/cart.html:125
+msgid "based on address"
+msgstr "بر اساس آدرس"
+
+#: eshop/templates/theme1/cart.html:133
+msgid "continue order"
+msgstr "ادامه سفارش"
+
+#: eshop/templates/theme1/cart.html:161 eshop/views.py:376 eshop/views.py:388
+msgid "maximum available products reached"
+msgstr "حداکثر تعداد قابل خرید انتخاب شده است"
+
+#: eshop/templates/theme1/cart.html:164
+msgid "your cart has changed please review"
+msgstr "سبد خرید شما بروز شده است. لطفا بررسی کنید"
+
+#: eshop/templates/theme1/compare.html:2 eshop/templates/theme1/compare.html:94
+#: eshop/templates/theme1/product.html:208
+msgid "compare"
+msgstr "مقایسه"
+
+#: eshop/templates/theme1/compare.html:83
+msgid "compare with ..."
+msgstr "مقایسه با ..."
+
+#: eshop/templates/theme1/factor.html:115
+msgid "total weight"
+msgstr "وزن کل"
+
+#: eshop/templates/theme1/factor.html:118
+msgid "grams"
+msgstr "گرم"
+
+#: eshop/templates/theme1/factor.html:283
+msgid "internet payment"
+msgstr "پرداخت اینترنتی"
+
+#: eshop/templates/theme1/factors.html:17
+msgid "factors is empty"
+msgstr "فاکتوری موجود نیست"
+
+#: eshop/templates/theme1/factors.html:55
+msgid "preview"
+msgstr "نمایش"
+
+#: eshop/templates/theme1/favorites.html:17
+msgid "favorites is empty"
+msgstr "علاقه مندی ها خالی است"
+
+#: eshop/templates/theme1/favorites.html:31
+#: eshop/templates/theme1/products.html:16
+msgid "not available"
+msgstr "موجود نیست"
+
+#: eshop/templates/theme1/home_page.html:2
+#: eshop/templates/theme1/products.html:2
+msgid "home page"
+msgstr "صفحه اصلی"
+
+#: eshop/templates/theme1/home_page.html:119
+msgid "Seconds"
+msgstr "ثانیه"
+
+#: eshop/templates/theme1/home_page.html:122
+msgid "Minutes"
+msgstr "دقیقه"
+
+#: eshop/templates/theme1/home_page.html:125
+msgid "Hours"
+msgstr "ساعت"
+
+#: eshop/templates/theme1/home_page.html:128
+msgid "Days"
+msgstr "روز"
+
+#: eshop/templates/theme1/login.html:2 eshop/templates/theme1/product.html:301
+msgid "login"
+msgstr "ورود"
+
+#: eshop/templates/theme1/login.html:9
+msgid "mobile number"
+msgstr "شماره همراه"
+
+#: eshop/templates/theme1/login.html:13
+msgid "input the mobile number correctly"
+msgstr "شماره همراه را به صورت صحیح وارد نمایید"
+
+#: eshop/templates/theme1/login.html:21
+msgid "continue"
+msgstr "ادامه"
+
+#: eshop/templates/theme1/login.html:26
+msgid "enter the code sent to your mobile number"
+msgstr "کدی که به شماره همراه شما ارسال شده را وارد کنید"
+
+#: eshop/templates/theme1/login.html:34
+msgid "confirm"
+msgstr "تایید"
+
+#: eshop/templates/theme1/product.html:231
+msgid "rating"
+msgstr "امتیاز"
+
+#: eshop/templates/theme1/product.html:251
+msgid "brief description"
+msgstr "توضیحات مختصر"
+
+#: eshop/templates/theme1/product.html:262
+msgid "available"
+msgstr "موجود"
+
+#: eshop/templates/theme1/product.html:264
+#: eshop/templates/theme1/support.html:90
+msgid "status"
+msgstr "وضعیت"
+
+#: eshop/templates/theme1/product.html:264
+#: eshop/templates/theme1/product.html:514
+#: eshop/templates/theme1/product.html:529
+msgid "unavailable"
+msgstr "ناموجود"
+
+#: eshop/templates/theme1/product.html:296
+#: eshop/templates/theme1/product.html:301
+#: eshop/templates/theme1/product.html:517
+#: eshop/templates/theme1/product.html:532
+msgid "add to cart"
+msgstr "افزودن به سبد"
+
+#: eshop/templates/theme1/product.html:344
+msgid "related products"
+msgstr "محصولات مشابه"
+
+#: eshop/templates/theme1/product.html:390
+msgid "there are no properties for this product"
+msgstr "هیچ ویژگی برای این محصول ثبت نشده است"
+
+#: eshop/templates/theme1/product.html:404
+msgid "add your comment ..."
+msgstr "نظر خود را ثبت کنید ..."
+
+#: eshop/templates/theme1/product.html:406
+#: eshop/templates/theme1/support.html:66
+#: eshop/templates/theme1/support.html:130
+msgid "submit"
+msgstr "ارسال"
+
+#: eshop/templates/theme1/product.html:430
+msgid "Admin"
+msgstr "ادمین"
+
+#: eshop/templates/theme1/product.html:445
+msgid "there are no comments for this product"
+msgstr "هیچ نظری برای این محصول ثبت نشده است"
+
+#: eshop/templates/theme1/shipp_payment.html:2
+msgid "shipping and payment"
+msgstr "پرداخت و ارسال"
+
+#: eshop/templates/theme1/shipp_payment.html:22
+msgid "edit"
+msgstr "ویرایش"
+
+#: eshop/templates/theme1/shipp_payment.html:64
+msgid "finish purchase"
+msgstr "تکمیل خرید"
+
+#: eshop/templates/theme1/support.html:64
+msgid "content"
+msgstr "متن"
+
+#: eshop/templates/theme1/support.html:70
+msgid "your ticket has been submitted"
+msgstr "درخواست پشتیبانی شما با موفقیت ثبت شد"
+
+#: eshop/templates/theme1/support.html:82
+msgid "tickets"
+msgstr "تیکت ها"
+
+#: eshop/templates/theme1/support.html:91
+msgid "creation date"
+msgstr "تاریخ ساخت"
+
+#: eshop/templates/theme1/support.html:109
+msgid "replies"
+msgstr "پاسخ ها"
+
+#: eshop/templates/theme1/support.html:127
+msgid "reply"
+msgstr "پاسخ"
+
+#: eshop/views.py:84
+msgid "Welcome"
+msgstr "خوش آمدید"
+
+#: eshop/views.py:86
+msgid "user not found"
+msgstr "کاربر یافت نشد"
+
+#: eshop/views.py:88
+msgid "user registration failed"
+msgstr "خطا در ثبت نام کاربر"
+
+#: eshop/views.py:121
+msgid "sms verification info not included"
+msgstr "اطلاعات تایید پیامک موجود نیست"
+
+#: eshop/views.py:123
+msgid "verification code not found"
+msgstr "کد اعتبارسنجی یافت نشد"
+
+#: eshop/views.py:125
+msgid "error in login"
+msgstr "خطا در ورود"
+
+#: eshop/views.py:198
+msgid "comment has been added, it will be shown after admin approval."
+msgstr "نظر شما ثبت شد و پس از تایید نمایش داده خواهد شد."
+
+#: eshop/views.py:250
+msgid "product removed from favorites"
+msgstr "محصول از علاقه مندی ها حذف شد"
+
+#: eshop/views.py:254
+msgid "product added to favorites"
+msgstr "محصول به علاقه مندی ها اضافه شد"
+
+#: eshop/views.py:319
+msgid "you don't have access to view this factor"
+msgstr "شما به این فاکتور دسترسی ندارید"
+
+#: eshop/views.py:321
+msgid "this factor does not exist"
+msgstr "فاکتور موجود نیست"
+
+#: eshop/views.py:395
+msgid "item successfully added to cart"
+msgstr "محصول به سبد خرید اضافه شد"
+
+#: eshop/views.py:411
+msgid "shipping address updated"
+msgstr "آدرس ارسال بروز شد"
+
+#: eshop/views.py:413
+msgid "error updating shipping address"
+msgstr "خطا در بروز رسانی آدرس ارسال"
+
+#: eshop/views.py:442
+msgid "a discount code is already applied to this cart"
+msgstr "برای این سبد خرید قبلا کد تخفیف ثبت شده است"
+
+#: eshop/views.py:448
+msgid "success"
+msgstr "موفق"
+
+#: eshop/views.py:450
+msgid "this discount code does not exist"
+msgstr "کد تخفیف وجود ندارد"
+
+#: eshop/views.py:453 eshop/views.py:553
+msgid "error"
+msgstr "خطا"
+
+#: eshop/views.py:497
+msgid "cart has changed"
+msgstr "سبد خرید تغییر کرده است"
+
+#: eshop/views.py:504 eshop/views.py:506
+msgid "complete the postal information"
+msgstr "اطلاعات پستی را تکمیل کنید"
+
+#~ msgid "separate with comma"
+#~ msgstr "با کاما جدا کنید"
+
+#~ msgid "register / login"
+#~ msgstr "ورود / ثبت نام"
+
+#~ msgid "subject"
+#~ msgstr "موضوع"
+
+#~ msgid "pay"
+#~ msgstr "پرداخت"
+
+#, fuzzy
+#~| msgid "factor item"
+#~ msgid "each item"
+#~ msgstr "آیتم فاکتور"
+
+#~ msgid "receiver"
+#~ msgstr "دریافت کننده"
+
+#~ msgid "count:"
+#~ msgstr "تعداد:"
+
+#~ msgid "input the price in rials"
+#~ msgstr "مبلغ را به ریال وارد کنید"
+
+#~ msgid "verification success"
+#~ msgstr "اعتبارسنجی موفق"

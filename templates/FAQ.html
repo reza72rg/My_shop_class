@@ -1,0 +1,242 @@
+{% extends 'theme1/base.html' %} {% load static i18n fa_calendar humanize shop_tools %}
+{% block title %}{% trans 'frequently asked questions' %}{% endblock %}
+{% block extra_head %}
+<link href="{% static 'theme1/style/owl.carousel.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/owl.theme.default.min.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/cart.css' %}" rel="stylesheet" />
+<style>
+.accordions {
+
+width: 80%;
+
+min-width: 300px;
+
+align-items: center;
+
+text-align: center;
+
+display: grid;
+
+}
+
+.accordions h3 {
+
+text-align: center;
+
+font-weight: bold;
+
+}
+
+.accordion-item {
+
+background-color: #4e4e4e;
+
+border-radius: 5px;
+
+color: #ffffff;
+
+margin-bottom: 20px;
+
+border: 1px solid #111111;
+
+}
+
+.accordion-item .accordion-title {
+
+cursor: pointer;
+
+padding: 20px;
+
+transition: transform 0.4s ease-in-out;
+
+}
+
+.accordion-item .accordion-title.active-title {
+
+background-color: #232323;
+
+color: #ffffff;
+
+}
+
+.accordion-item .accordion-title h3 {
+
+font-weight: 700;
+
+margin: 0;
+
+justify-content: space-between;
+
+font-weight: bold;
+
+font-size: 16px;
+
+display: flex;
+
+}
+
+.accordion-item .accordion-title i.fa-chevron-down {
+
+transform: rotate(0);
+
+transition: 0.4s;
+
+}
+
+.accordion-item .accordion-title i.fa-chevron-down.chevron-top {
+
+transform: rotate(-180deg);
+
+color: #fa5019;
+
+}
+
+.accordion-item .accordion-content {
+
+display: none;
+
+line-height: 1.7;
+
+color: #232323;
+
+padding: 20px;
+
+background-color: #ffffff;
+
+border-radius: 0 0 5px 5px;
+
+}
+
+.accordion-item .accordion-content.active {
+
+display: block;
+
+}
+
+.accordion-item .accordion-content p {
+
+margin: 0;
+
+font-size: 16px;
+
+}
+
+.details {
+
+background: #dce1f2;
+
+}
+
+.details img {
+
+margin: 0 auto;
+
+display: block;
+
+}
+
+.details h3 {
+
+font-weight: bold;
+
+font-size: 16px;
+
+}
+
+.details p {
+
+font-size: 16px;
+
+line-height: 1.5em;
+
+}
+
+.details ul li {
+
+font-size: 16px;
+
+line-height: 1.7em;
+
+}
+
+.chv-down{
+    -moz-transition: all 0.4s linear;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+
+.chv-down.chv-top{
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    color: #757575;
+}
+</style>
+
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="cart-page-content col-12 order-1">
+                <div class="cart-page-title">
+                    <h1>{% trans 'Frequently Asked Questions' %}</h1>
+                </div>
+                <section id="faq">
+                  <div class="container faq">
+                    <div class="row">
+                      <div class="col-sm-12 justify-content-center" style="text-align: center; display: flex;">
+                        <div class="accordions">
+                          {% for item in faqs %}
+                          <div class="accordion-item">
+                            <div class="accordion-title" data-tab="item{{forloop.counter}}">
+                              <h3>{{item.question}} <span class="chv-down" style="height: 16px;"><i class="fa fa-chevron-down"></i></span></h3>
+                            </div>
+                            <div class="accordion-content" id="item{{forloop.counter}}">
+                              <p>
+                                {{item.answer|linebreaks}}
+                              </p>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".accordion-title").click(function (e) {
+      var accordionitem = $(this).attr("data-tab");
+      $("#" + accordionitem)
+        .slideToggle()
+        .parent()
+        .siblings()
+        .find(".accordion-content")
+        .slideUp();
+
+      $(this).toggleClass("active-title");
+      $("#" + accordionitem)
+        .parent()
+        .siblings()
+        .find(".accordion-title")
+        .removeClass("active-title");
+
+      $("span.chv-down", this).toggleClass("chv-top");
+      $("#" + accordionitem)
+        .parent()
+        .siblings()
+        .find(".accordion-title span.chv-down")
+        .removeClass("chv-top");
+    });
+  });
+
+  </script>
+{% endblock %}

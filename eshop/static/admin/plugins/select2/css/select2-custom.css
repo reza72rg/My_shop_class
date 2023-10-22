@@ -1,0 +1,8 @@
+
+.select2-selection--multiple {
+    min-width: 80% !important;
+}
+
+.select2-container--default {
+    min-width: 275px !important;
+}

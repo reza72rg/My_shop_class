@@ -1,0 +1,135 @@
+{% extends 'theme1/base.html' %} {% load static i18n crispy_forms_tags %}
+{% block title %}{% trans 'shipping and payment' %}{% endblock %}
+{% block extra_head %}
+<link href="{% static 'theme1/style/toastr.min.css' %}" rel="stylesheet">
+<link href="{% static 'theme1/style/shipp_payment.css' %}" rel="stylesheet" />
+<style>
+    a :hover{
+      text-decoration: none !important;
+   }
+   #toast-container > .toast-success {
+      background-color: #198754;
+   }
+   #toast-container > .toast-error {
+      background-color: #ff0f0f;
+   }
+   #toast-container > .toast-info {
+      background-color: #0000ff;
+   }
+</style>
+{% endblock %}
+{% block content %}
+<div><a style="float: left; text-decoration: none;" href="{% url 'shipping_address' %}"><i class="fa fa-pencil" style="margin-left: 7px;"></i>{% trans 'edit' %}</a></div>
+<div id="postal_info">
+{{shipping_address_form|crispy}}
+</div>
+<div class="row mt-3 mb-3 justify-content-center">
+    <div class="mt-1 mb-1">
+    {% trans 'shipping method' %}:
+    </div>
+    {% for sm in shipping_methods %}
+    <div class="col-lg-2 col-md-3 col-6 justify-content-center mt-1 mb-1">
+        <div style="text-align: center;">
+            <input class="form-check-input sm-radio" type="radio" id="sm{{sm.id}}" data-id="pm-div-{{sm.id}}" name="shipping_method" value="{{sm.code}}">
+            <label class="form-check-label" for="sm{{sm.id}}">
+                {{sm.title}}
+            </label>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<div class="row mt-3 mb-3 justify-content-center">
+    <div class="mt-1 mb-1 sm-div-container" style="display:none;">
+    {% trans 'payment method' %}:
+    </div>
+    {% for sm in shipping_methods %}
+    {% for pm in sm.payment_methods.all %}
+    <div class="col-lg-2 col-md-3 col-6 justify-content-center mt-1 mb-1 pm-div pm-div-{{sm.id}}" style="display: none;">
+        <div style="text-align: center;">
+            <input class="form-check-input pm-radio" type="radio" id="pm{{pm.id}}{{sm.id}}" name="payment_method" value="{{pm.code}}">
+            <label class="form-check-label" for="pm{{pm.id}}{{sm.id}}">
+                {{pm.title}}
+            </label>
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+</div>
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-3 col-md-4 col-8 justify-content-center" style="display: flex;">
+        <a class="selenium-next-step-shipping">
+            <div class="parent-btn continue-payment">
+                <button id="finish_purchase" class="dk-btn dk-btn-success" disabled>
+                    <i class="fa fa-check-circle"></i>
+                    {% trans 'finish purchase' %}
+                </button>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'theme1/js/toastr.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $('#postal_info input,#postal_info textarea').attr('readonly', 'readonly');
+        $('select').attr("disabled", true); 
+        $('#div_id_title').hide();
+        $(".pm-radio").on("change",function(){
+            $("#finish_purchase").prop('disabled', false)
+        })
+        $(".sm-radio").on("change",function(){
+            $(".sm-div-container").show("slow");
+            $(".pm-radio").prop('checked', false);
+            $("#finish_purchase").prop('disabled', true)
+            $(".pm-div").hide();
+            $("." + $(this).data('id')).show('slow')
+        })
+        $("#finish_purchase").on('click', function(){
+            $.ajax({
+                url: "/create-factor/",
+                dataType: "json",
+                type: "Post",
+                async: true,
+                headers: {
+                'X-CSRFToken': csrftoken
+                },
+                data: {
+                "payment_method": $('input[name="payment_method"]:checked').val(),
+                "shipping_method": $('input[name="shipping_method"]:checked').val(),
+                },
+                success: function(data) {
+                if (data["error"]) {
+                    toastr.error("",data["error"],{positionClass: 'toast-bottom-right'})
+                } else if(data["success"]){
+                    window.location.href = "/factor/" + data["success"]
+                }
+                else if(data["cart_is_changed"]){
+                    window.location.href = "/cart/" + "?error=2"
+                }
+                },
+                error: function(xhr, exception) {
+                var msg = "";
+                if (xhr.status === 0) {
+                    msg = "Not connect.\n Verify Network." + xhr.responseText;
+                } else if (xhr.status == 404) {
+                    msg = "Requested page not found. [404]" + xhr.responseText;
+                } else if (xhr.status == 500) {
+                    msg = "Internal Server Error [500]." + xhr.responseText;
+                } else if (exception === "parsererror") {
+                    msg = "Requested JSON parse failed.";
+                } else if (exception === "timeout") {
+                    msg = "Time out error." + xhr.responseText;
+                } else if (exception === "abort") {
+                    msg = "Ajax request aborted.";
+                } else {
+                    msg = "Error:" + xhr.status + " " + xhr.responseText;
+                }
+                console.log(msg)
+
+                }
+            });
+        })
+    })
+</script>
+{% endblock %}

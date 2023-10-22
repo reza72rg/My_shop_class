@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% load i18n static fa_calendar humanize shop_tools %}
+{% block title %}{% trans 'home page' %}{% endblock %}
+{% block extra_head %}
+<link href="{% static 'theme1/style/owl.carousel.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/owl.theme.default.min.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/products.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block content %} 
+<div class="tab-content default text-center">
+    <div class="tab-pane active" id="related" role="tabpanel" aria-expanded="true">
+        <div class="container no-padding-right">
+            <ul class="row listing-items">
+                {% for product in products %}
+                <li class="col-xl-3 col-lg-4 col-md-6 col-12 no-padding" style="margin: 15px 0px 15px 0px;">
+                    {% if not product.count %}
+                    <div class="label-check" style="margin-left: 14px;">{% trans 'not available' %}</div>
+                    {% endif %}
+                    <div class="product-box">
+                        <a class="product-box-img" href="/product/{{product.id}}">
+                            {% if product.image %}
+                            <img src="{{product.image.url}}" alt="">
+                            {% else %}
+                            <img src="{% static 'theme1/img/default.png' %}" alt="">
+                            {% endif %}
+                        </a>
+                        <div class="product-box-content">
+                            <div class="product-box-content-row">
+                                <div class="product-box-title">
+                                    <a href="/product/{{product.id}}" style="font-size: 1.1rem;text-decoration:none;">
+                                        {{product.title}}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-box-row product-box-row-price">
+                                <div class="price">
+                                    <div class="price-value">
+                                        <div class="price-value-wrapper">
+                                            {% product_discount product as pd %}
+                                            <span {% if pd %}style="text-decoration: line-through; font-size: 1.1rem; color: gray;"{% else %}style="font-size: 1.43rem;"{% endif %}>{{product.price|intcomma:False|to_persian_number}}</span> <span class="price-currency" {% if pd %}style="visibility:hidden"{% endif %}>{% get_currency %}</span>
+                                            {% if pd %}
+                                            <br>
+                                            <span style="font-size: 1.43rem;">{{pd}}</span> <span class="price-currency">{% get_currency %}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

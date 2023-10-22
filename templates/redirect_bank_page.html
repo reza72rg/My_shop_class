@@ -1,0 +1,69 @@
+{% extends "theme1/base.html" %}
+{% load i18n %}
+{% block css %}
+<head>
+{{ block.super }}
+<style type="text/css">
+#whmbody {
+    direction: ltr;
+    text-align: left;
+}
+</style>
+</head>
+{% endblock %}
+
+{% block content %}
+<body>
+<center>
+<div style="min-height: 300px;">
+<br /><br /><br /><br /><br /><br />
+<h3>در حال انتقال به صفحه پرداخت بانک</h3>
+<br />
+<h2>لطفا شکیبا باشید</h2>
+</div>
+</center>
+
+{% if bank_name == "mellat" %}
+<script language="javascript" type="text/javascript">
+function postRefId_mellat (refIdValue) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "https://bpm.shaparak.ir/pgwchannel/startpay.mellat");
+    form.setAttribute("target", "_self");
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("name", "RefId");
+    hiddenField.setAttribute("value", refIdValue);
+    form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+postRefId_mellat('{{refID}}');
+</script>
+{% endif %}
+
+{% if bank_name == "saman" %}
+<script language="javascript" type="text/javascript">
+var form = document.createElement("form");
+form.setAttribute("method", "POST");
+//form.setAttribute("action", "https://banktest.ir/gateway/saman/gate");
+form.setAttribute("action", "https://sep.shaparak.ir/payment.aspx");
+form.setAttribute("target", "_self");
+var hiddenField = document.createElement("input");
+hiddenField.setAttribute("name", "token");
+hiddenField.setAttribute("value", "{{refID}}");
+form.appendChild(hiddenField);
+var hiddenField2 = document.createElement("input");
+hiddenField2.setAttribute("name", "RedirectURL");
+hiddenField2.setAttribute("value", "{{callback_page}}");
+form.appendChild(hiddenField2);
+document.body.appendChild(form);
+
+form.submit();
+
+document.body.removeChild(form);
+</script>
+{% endif %}
+
+
+{% endblock %}

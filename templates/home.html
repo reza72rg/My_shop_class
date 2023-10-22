@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link href="{% static 'shop/css/owl.carousel.min.css' %}" rel="stylesheet">
+<link href="{% static 'shop/css/owl.theme.default.min.css' %}" rel="stylesheet">
+{% endblock extra_head %}
+
+{% block body %}
+
+<div class="owl-carousel owl-theme owl-slider">
+    {% for p in products %}
+    <div class="item">
+        <a href="/product/{{p.id}}/">
+            {% if p.image %}
+                <img src="{{p.image.url}}" alt="image">
+            {% else %}
+                <img src="{% static 'img/no_image.jpg' %}" alt="image">
+            {% endif %}
+            <h5>{{p.title}}</h5>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock body %}
+
+{% block script %}
+<script src="{% static 'shop/js/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'shop/js/owl.carousel.min.js' %}" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        $(".owl-slider").owlCarousel({
+            center:true,
+            loop:true,
+            autoplay:true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause:true,
+            rtl:true,
+            items:4,
+            margin:50
+        })
+    })
+</script>
+{% endblock script %}

@@ -1,0 +1,186 @@
+{% extends 'base.html' %} {% load static i18n fa_calendar humanize shop_tools %}
+{% block title %}{% trans 'home page' %}{% endblock %}
+{% block extra_head %}
+<link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet" />
+<style>
+   body {
+      background-color: #eeeeee !important;
+   }
+   #owl-demo .item{
+      margin: 3px;
+   }
+   #owl-demo .item img{
+      display: block;
+      width: 100%;
+      height: auto;
+   }
+   .category{
+      border-radius: 8px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+      background: #ffffff;
+      padding: 35px;
+      border: none;
+      margin-bottom: 15px;
+   }
+   .category-name{
+      display: inline-block;
+      border-bottom: 1px solid #ef5661;
+      padding-bottom: 10px;
+      position: relative;
+      top: 1px;
+   }
+   .category-h6{
+      border-bottom: 1px solid #e0e1e2;
+      padding-bottom: 0;
+      line-height: 2;
+   }
+   .time-count > span{
+      margin-left: 1.7rem;
+      margin-right: 1.7rem;
+   }
+   .countdown {
+      min-width: 200px;
+      height: 68px;
+      position: relative;
+   }
+   .timer-container,
+   .timer-background {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+   }
+   .timer-background {
+      left: 0; 
+      right: 0;
+      width: 380px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 10;
+   }
+</style>
+{% endblock %}
+{% block content %}
+{% if amazings %}
+{% for amazing in amazings %}
+<div class="category" style="margin-bottom: 1.75rem;">
+   <h6 class="category-h6">
+      <span class="category-name">{{ amazing.title }}</span>
+   </h6>
+   <div class="owl-carousel owl-theme owl-slider-amazings" style="text-align: center;">
+      {% for product in amazing.products.all %}
+      {% if product.is_active %}
+      <div class="item">
+         <a href="/product/{{product.id}}" style="text-decoration: none; color: black;">
+            {% if product.image %}
+            <img src="{{product.image.url}}" alt="Image">
+            {% else %}
+            <img src="{% static 'img/default.png' %}" alt="Image">
+            {% endif %}
+            <h5 style="margin-top: 20px;">{{product.title}}</h5>
+         </a>
+         {% comment %}
+         {% product_discount product as pd %}
+         <span {% if pd %}style="text-decoration: line-through; font-size: 14px; color: gray;"{% endif %}>{{product.price|intcomma:False|to_persian_number}} {% get_currency %}</span>
+         {% if pd %}
+         <br>
+         <span>{{pd}} {% get_currency %}</span>
+         {% endif %}
+         {% endcomment %}
+      </div>
+      {% endif %}
+      {% endfor %}
+   </div>
+</div>
+{% endfor %}
+{% endif %}
+{% regroup products by category as categories_list %}
+{% for category in categories_list %}
+<div class="category" style="margin-bottom: 1.75rem;">
+   <h6 class="category-h6">
+      <span class="category-name">{{ category.grouper }}</span>
+   </h6>
+   <div class="owl-carousel owl-theme owl-slider" style="text-align: center;">
+      {% for product in category.list %}
+      <div class="item">
+         <a href="/product/{{product.id}}" style="text-decoration: none; color: black;">
+            {% if product.image %}
+            <img src="{{product.image.url}}" alt="Image">
+            {% else %}
+            <img src="{% static 'img/default.png' %}" alt="Image">
+            {% endif %}
+            <h6 style="margin-top: 20px;">{{product.title}}</h6>
+            <h6>{{ product.price|intcomma:False|to_persian_number }}</h6>تومان
+         </a>
+         {% comment %}
+         {% product_discount product as pd %}
+         <span {% if pd %}style="text-decoration: line-through; font-size: 14px; color: gray;"{% endif %}>{{product.price|intcomma:False|to_persian_number}} {% get_currency %}</span>
+         {% if pd %}
+         <br>
+         <span>{{pd}} {% get_currency %}</span>
+         {% endif %}
+         {% endcomment %}
+      </div>
+      {% endfor %}
+   </div>
+</div>
+{% endfor %}
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/owl.carousel.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/multi-countdown.js' %}" type="text/javascript"></script>
+<script>
+   $(document).ready(function() {
+     
+     $(".owl-slider").owlCarousel({
+         center:true,
+         loop:true,
+         autoplay: true,
+         autoplayTimeout: 3000, //Set AutoPlay to 3 seconds
+         autoplayHoverPause: true,
+         rtl:true, 
+         items : 3,
+         margin:50,
+         itemsDesktop : [1199,3],
+         itemsDesktopSmall : [979,3],
+         responsive:{
+            0:{
+               items:2,
+            },
+            600:{
+               items:3,
+            },
+            1000:{
+               items:5,
+            }
+         }
+     });
+     $(".owl-slider-amazings").owlCarousel({
+         center:true,
+         loop:true,
+         autoplay: true,
+         autoplayTimeout: 3000, //Set AutoPlay to 3 seconds
+         autoplayHoverPause: true,
+         rtl:true, 
+         items : 3,
+         margin:50,
+         itemsDesktop : [1199,3],
+         itemsDesktopSmall : [979,3],
+         responsive:{
+            0:{
+               items:1,
+            },
+            600:{
+               items:2,
+            },
+            1000:{
+               items:4,
+            }
+         }
+     });
+   });
+</script>
+{% endblock %}

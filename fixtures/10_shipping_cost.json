@@ -1,0 +1,1 @@
+[{"model": "eshop.shippingcost", "pk": 1, "fields": {"create_date": "2023-08-15T23:05:53.944Z", "modify_date": "2023-08-17T20:36:52.248Z", "is_active": true, "title": "آذربایجان ها", "from_weight": 0, "to_weight": 10000, "price": 300000, "description": "", "states": [1, 2]}}]

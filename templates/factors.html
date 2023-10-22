@@ -1,0 +1,69 @@
+{% extends 'theme1/base.html' %} {% load static i18n fa_calendar humanize shop %}
+{% block title %}{% trans 'factors' %}{% endblock %}
+{% block extra_head %}
+<link href="{% static 'theme1/style/owl.carousel.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/owl.theme.default.min.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/cart.css' %}" rel="stylesheet" />
+
+{% endblock %}
+{% block content %}
+{% if not factors %}
+<main class="cart default">
+    <div class="container text-center">
+        <div class="cart-empty">
+            <div class="cart-empty-icon">
+                <i style="font-size: 5rem; color: gray;" class="fa fa-clipboard-list"></i>
+            </div>
+            <div class="cart-empty-title">{% trans 'factors is empty' %}</div>
+            <div class="parent-btn">
+                {% if not request.user.is_authenticated %}
+                <a href="/login/" class="dk-btn dk-btn-success">
+                    {% trans 'login to your account' %}
+                    <i class="fa fa-sign-in"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+{% else %}
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="cart-page-content col-12 order-1">
+                <div class="cart-page-title">
+                    <h1>{% trans 'factors' %}</h1>
+                </div>
+                <div class="table-responsive checkout-content default">
+                    <table class="table" style="margin-bottom: 0px;">
+                        <tbody>
+                            {% for factor in factors %}
+                            <tr class="checkout-item" style="border-bottom: 1px solid #eaeaea;">
+                                <td>
+                                    {% trans 'factor id' %} : {{factor.uuid}}
+                                </td>
+                                <td>
+                                    {{factor.payment_status}}
+                                </td>
+                                <td>
+                                    {{factor.shipping_status}}
+                                </td>
+                                <td>
+                                    {% trans 'final price' %} : {{factor.final_price|intcomma:False|to_persian_number}} {% get_currency %}
+                                </td>
+                                <td>
+                                    <a href="/factor/{{factor.uuid}}">{% trans 'preview' %}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endif %}
+{% endblock %}
+{% block script %}
+{% endblock %}
