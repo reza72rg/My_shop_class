@@ -1,7 +1,8 @@
-from django.contrib import humanize
 from django import template
-from django.db.models import Sum
-from eshop.models import Setting, Category, Cart, CartItem,Discount
+
+from django.db.models import Sum, F
+from django.contrib.humanize.templatetags.humanize import intcomma
+from eshop.models import Setting, Category, Cart, CartItem, Discount
 from django.utils.translation import gettext_lazy as _
 
 
@@ -25,10 +26,10 @@ persian_digits = {
 def get_setting(setting_name):
     s = Setting.objects.first()
     try:
-        if setting_name == "site_logo":
-            return s.site_logo.url
-        elif setting_name == "site_title":
-            return s.site_title
+        # if setting_name == "site_logo":
+        #     return s.site_logo.url
+        # elif setting_name == "site_title":
+        #     return s.site_title
         return getattr(s, setting_name).url
     except:
         return getattr(s, setting_name)
@@ -47,7 +48,7 @@ def to_persian_number(value):
 
 @register.simple_tag
 def get_currency():
-    currency = "toman"
+    currency = "Toman"
     return _(currency)
 
 
@@ -58,13 +59,10 @@ def cart_items_count(user):
         # count = 0
         # for i in CartItem.objects.filter(cart=c):
         #     count += i.count
-        count = CartItem.objects.filter(cart=c).aggregate(Sum("count"))["count__sum"]
-        if count == None:
-            return to_persian_number("0")
-        return count
+        # return count
+        return CartItem.objects.filter(cart=c).aggregate(Sum("count"))["count__sum"]
     except:
         return to_persian_number("0")
-    
 
 
 @register.simple_tag
@@ -73,7 +71,7 @@ def product_discount(product):
         dp = Discount.objects.get(product=product, is_active=True)
         price = product.price
         if not dp.percent == 0:
-            return to_persian_number(humanize.intcomma(price * (100 - dp.percent) // 100))
+            return to_persian_number(intcomma(price * (100 - dp.percent) // 100, False))
         else:
             return False
     except:
@@ -82,14 +80,21 @@ def product_discount(product):
 
 @register.simple_tag
 def cart_total_price(cart_id):
-    user_response = CartItem.objects.filter(cart_id = cart_id)
-    count = 0
-    for i in user_response:
-        count += i.count * i.price
-    return to_persian_number(f'{count:,}')
+    c = Cart.objects.get(id=cart_id)
+    return to_persian_number(intcomma(CartItem.objects.filter(cart=c).annotate(total_field_price=F('count') * F('price')).aggregate(Sum("total_field_price"))["total_field_price__sum"], False))
 
 
 @register.simple_tag
 def cart_total_price_with_tax(cart_id, tax, discount_price):
-    return 0
+    c = Cart.objects.get(id=cart_id)
+    return to_persian_number(intcomma(CartItem.objects.filter(cart=c).annotate(total_field_price=F('count') * F('price')).aggregate(Sum("total_field_price"))["total_field_price__sum"] - discount_price + tax, False))
+
+
+
+
+
+
+
+
+
 

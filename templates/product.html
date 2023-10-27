@@ -557,7 +557,7 @@ $(document).ready(function() {
       });
       $('#add_to_cart').click(function(){
          $.ajax({
-            url: "{% url 'eshop:add_cart_item' %}",
+            url: "{% url 'add_cart_item' %}",
             dataType: "json",
             type: "Post",
             async: true,

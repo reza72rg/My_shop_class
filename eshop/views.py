@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404,redirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from django.http import JsonResponse
-from eshop.models import Product, ProductImage, ProductProperty, Discount, Cart, CartItem, ProductMonetaryOption, Setting
+from django.http import JsonResponse, HttpResponseRedirect
+from eshop.models import Product, ProductImage, ProductProperty, Discount, Cart, CartItem, ProductMonetaryOption, \
+    Setting, ShippingAddress
+from eshop.forms import ShippingAddressForm
 
 
 def home(request):
@@ -113,30 +116,70 @@ def cart(request,**kwargs):
     except:
         context = {}
     return render (request, "cart.html", context=context)
-
+@login_required
+def plus_cart_item(request, cart_item_id):
+    c = Cart.objects.get(user=request.user)
+    ci = CartItem.objects.get(cart=c, id=cart_item_id)
+    try:
+        if ci.monetary_option.count <= ci.count:
+            return HttpResponseRedirect(f"{reverse('cart')}?error=1")
+        else:
+            ci.count += 1
+            ci.save()
+    except:
+        if ci.product.count <= ci.count:
+            return HttpResponseRedirect(f"{reverse('cart')}?error=1")
+        else:
+            ci.count += 1
+            ci.save()
+    return HttpResponseRedirect(reverse("cart"))
 
 
 @login_required
-def cart_add_mini(request,**kwargs):
+def minus_cart_item(request, cart_item_id):
+    c = Cart.objects.get(user=request.user)
+    ci = CartItem.objects.get(cart=c, id=cart_item_id)
+    ci.count -= 1
+    if ci.count <= 0:
+        pass
+    else:
+        ci.save()
+    return HttpResponseRedirect(reverse("cart"))
+
+
+@login_required
+def del_cart_item(request, cart_item_id):
+    c = Cart.objects.get(user=request.user)
+    CartItem.objects.get(cart=c, id=cart_item_id).delete()
+    if len(CartItem.objects.filter(cart=c)) == 0:
+        c.delete()
+    return HttpResponseRedirect(reverse("cart"))
+@login_required
+def shipp_payment(request):
+    shipping_instance = None
     try:
-        c = Cart.objects.get(user=request.user)
-        if kwargs.get('id_delete') != None:
-            new = CartItem.objects.get(id = kwargs['id_delete'] ,cart=c )  
-            new.delete()
-        if kwargs.get('id_pluse') != None:
-            new = CartItem.objects.get(id = kwargs['id_pluse'] ,cart=c )  
-            new.count +=1
-            new.save()
-        if kwargs.get('id_minus') != None:
-            new = CartItem.objects.get(id = kwargs['id_minus'] ,cart=c ) 
-            if new.count == 1:
-                pass 
-            else:
-                new.count -=1
-                new.save() 
+        shipping_instance = ShippingAddress.objects.get(user=request.user)
     except:
         pass
-    return redirect ('eshop:cart')
+    shipping_address_form = ShippingAddressForm(instance=shipping_instance)
+    c = Cart.objects.get(user=request.user)
+    ci = CartItem.objects.filter(cart=c)
+    # ps = []
+    # for i in ci:
+    #     ps.append(i.product)
+    ps = [i.product for i in ci]
+    sm_dict = {}
+    sm_list = []
+    for product in ps:
+        for method in product.shipping_methods.all():
+            if method in sm_dict:
+                sm_dict[method] += 1
+            else:
+                sm_dict[method] = 1
+    for k, v in sm_dict.items():
+        if v == len(ps):
+            sm_list.append(k)
+    return render(request=request, template_name="shipp_payment.html",
+                  context={"shipping_address_form": shipping_address_form,
+                           "shipping_methods": sm_list})
 
-def login(request):
-    return render(request,'login.html')

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-21 09:41+0330\n"
+"POT-Creation-Date: 2023-10-27 13:30+0330\n"
 "PO-Revision-Date: 2023-08-17 16:07+0330\n"
 "Last-Translator: saied <saied.delshad@gmail.com>\n"
 "Language-Team: soomasoft\n"
@@ -17,364 +17,307 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Virtaal 0.7.1\n"
 
-#: admin_theme/__init__.py:3
-msgid "Authentication and Authorization"
-msgstr "مدیریت کاربران"
-
-#: admin_theme/__init__.py:4 admin_theme/templates/admin/base.html:82
-#: admin_theme/templates/admin/change_form.html:18
-#: admin_theme/templates/admin/change_list.html:31
-#: admin_theme/templates/admin/delete_confirmation.html:14
-msgid "Home"
-msgstr "خانه"
-
-#: admin_theme/__init__.py:5
-msgid "Site administration"
-msgstr "مدیریت سایت"
-
-#: admin_theme/__init__.py:6
-msgid "Rials"
-msgstr "ریال"
-
-#: admin_theme/admin.py:20 admin_theme/admin.py:161
-msgid "register date"
-msgstr "تاریخ ثبت"
-
-#: admin_theme/admin.py:30 admin_theme/admin.py:40 admin_theme/admin.py:58
-msgid "creation date"
-msgstr "تاریخ ایجاد"
-
-#: admin_theme/admin.py:66 admin_theme/models.py:55
-msgid "create date"
-msgstr "تاریخ ایجاد"
-
-#: admin_theme/admin.py:74 admin_theme/models.py:56
-msgid "modify date"
-msgstr "تاریخ ویرایش"
-
-#: admin_theme/admin.py:82
-msgid "expire date"
-msgstr "تاریخ انقضا"
-
-#: admin_theme/admin.py:90
-msgid "publish date"
-msgstr "تاریخ انتشار"
-
-#: admin_theme/admin.py:98
-msgid "send date"
-msgstr "تاریخ ارسال"
-
-#: admin_theme/admin.py:106
-msgid "sent date"
-msgstr "تاریخ ارسال"
-
-#: admin_theme/admin.py:114
-msgid "receive date"
-msgstr "تاریخ دریافت"
-
-#: admin_theme/admin.py:122
-msgid "payment date"
-msgstr "تاریخ پرداخت"
-
-#: admin_theme/admin.py:130
-msgid "date"
-msgstr "تاریخ"
-
-#: admin_theme/admin.py:140
-msgid "end date"
-msgstr "تاریخ پایان"
-
-#: admin_theme/admin.py:150
-msgid "start date"
-msgstr "تاریخ شروع"
-
-#: admin_theme/admin.py:172
-msgid "start date time"
-msgstr "تاریخ شروع"
-
-#: admin_theme/admin.py:183
-msgid "end date time"
-msgstr "تاریخ پایان"
-
-#: admin_theme/models.py:26 admin_theme/models.py:41
+#: .\admin_theme\models.py:6 .\admin_theme\models.py:21
 msgid "title"
 msgstr "عنوان"
 
-#: admin_theme/models.py:35 admin_theme/models.py:40
+#: .\admin_theme\models.py:15 .\admin_theme\models.py:20
 msgid "state"
 msgstr "استان"
 
-#: admin_theme/models.py:36
+#: .\admin_theme\models.py:16
 msgid "states"
 msgstr "استان ها"
 
-#: admin_theme/models.py:50
+#: .\admin_theme\models.py:30
 msgid "city"
 msgstr "شهر"
 
-#: admin_theme/models.py:51
+#: .\admin_theme\models.py:31
 msgid "cities"
 msgstr "شهرها"
 
-#: admin_theme/models.py:57
-msgid "active"
-msgstr "فعال"
-
-#: admin_theme/models.py:130
-msgid "uuid"
-msgstr "کد یکتا"
-
-#: admin_theme/models.py:132
-msgid "profile image"
-msgstr "تصویر پروفایل"
-
-#: admin_theme/models.py:133
-msgid "profile image approved"
-msgstr "تصویر پروفایل تایید شده"
-
-#: admin_theme/models.py:136
-msgid "national id"
-msgstr "کد ملی"
-
-#: admin_theme/models.py:143
-msgid "national id image"
-msgstr "تصویر کارت ملی"
-
-#: admin_theme/models.py:148
-msgid "mobile number"
-msgstr "شماره موبایل"
-
-#: admin_theme/models.py:149
-msgid "biography"
-msgstr "بیوگرافی"
-
-#: admin_theme/models.py:150
-msgid "Address"
-msgstr "آدرس"
-
-#: admin_theme/models.py:178
-msgid "user profile"
-msgstr "پروفایل کاربر"
-
-#: admin_theme/models.py:179
-msgid "user profiles"
-msgstr "پروفایل کاربران"
-
-#: admin_theme/templates/admin/app_list.html:24
-msgid "You don’t have permission to view or edit anything."
-msgstr "شما اجازه مشاهده یا ویرایش ندارید"
-
-#: admin_theme/templates/admin/change_form.html:21
-#, python-format
-msgid "Add %(name)s"
-msgstr "افزودن %(name)s"
-
-#: admin_theme/templates/admin/change_form.html:43
-#: admin_theme/templates/admin/change_list.html:51
-#: admin_theme/templates/admin/login.html:23
-msgid "Please correct the error below."
-msgstr "لطفا خطای زیر را رفع نمایید."
-
-#: admin_theme/templates/admin/change_form.html:43
-#: admin_theme/templates/admin/change_list.html:51
-#: admin_theme/templates/admin/login.html:23
-msgid "Please correct the errors below."
-msgstr "لطفا خطاهای زیر را رفع نمایید."
-
-#: admin_theme/templates/admin/change_form_object_tools.html:3
-#: admin_theme/templates/admin/edit_inline/stacked.html:18
-#: admin_theme/templates/admin/edit_inline/tabular.html:40
-msgid "View on site"
-msgstr "مشاهده سایت"
-
-#: admin_theme/templates/admin/change_list.html:76
-msgid "Filter"
-msgstr "فیلتر"
-
-#: admin_theme/templates/admin/change_list.html:78
-msgid "Clear all filters"
-msgstr "برداشتن همه فیلترها"
-
-#: admin_theme/templates/admin/delete_confirmation.html:18
-msgid "Delete"
-msgstr "حذف"
-
-#: admin_theme/templates/admin/delete_confirmation.html:24
-#, python-format
-msgid ""
-"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
-"related objects, but your account doesn't have permission to delete the "
-"following types of objects:"
+#: .\admin_theme\templates\admin\index.html:23
+msgid "Recent actions"
 msgstr ""
-"با حذف %(object_name)s '%(escaped_object)s' تمام موارد وابسته حذف می شوند، "
-"ولی دسترسی شما اجازه حذف موارد زیر را ندارد:"
 
-#: admin_theme/templates/admin/delete_confirmation.html:31
-#, python-format
-msgid ""
-"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
-"following protected related objects:"
+#: .\admin_theme\templates\admin\index.html:24
+msgid "My actions"
 msgstr ""
-"حذف %(object_name)s '%(escaped_object)s' نیاز به حذف موارد محافظت شده زیر را "
-"دارد:"
 
-#: admin_theme/templates/admin/delete_confirmation.html:38
-#, python-format
-msgid ""
-"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
-"All of the following related items will be deleted:"
+#: .\admin_theme\templates\admin\index.html:28
+msgid "None available"
 msgstr ""
-"آیا از حذف %(object_name)s \"%(escaped_object)s\" مطمين هستید؟ تمام موارد "
-"وابسته زیر با آن حذف می شوند:"
 
-#: admin_theme/templates/admin/delete_confirmation.html:40
-msgid "Objects"
-msgstr "موارد"
-
-#: admin_theme/templates/admin/delete_confirmation.html:47
-msgid "Yes, I’m sure"
-msgstr "بله ، مطمئن هستم"
-
-#: admin_theme/templates/admin/delete_confirmation.html:48
-msgid "No, take me back"
-msgstr "نه ، برگردیم عقب"
-
-#: admin_theme/templates/admin/edit_inline/stacked.html:16
-#: admin_theme/templates/admin/edit_inline/tabular.html:38
-msgid "Change"
-msgstr "تغییر"
-
-#: admin_theme/templates/admin/edit_inline/stacked.html:16
-#: admin_theme/templates/admin/edit_inline/tabular.html:38
-msgid "View"
-msgstr "نمایش"
-
-#: admin_theme/templates/admin/edit_inline/tabular.html:24
-msgid "Delete?"
-msgstr "حذف؟"
-
-#: admin_theme/templates/admin/filter.html:2
-#, python-format
-msgid " By %(filter_title)s "
-msgstr "%(filter_title)s"
-
-#: admin_theme/templates/admin/includes/object_delete_summary.html:2
-msgid "Summary"
-msgstr "خلاصه"
-
-#: admin_theme/templates/admin/login.html:39
-#, python-format
-msgid ""
-"You are authenticated as %(username)s, but are not authorized to access this "
-"page. Would you like to login to a different account?"
+#: .\admin_theme\templates\admin\index.html:42
+msgid "Unknown content"
 msgstr ""
-"شما با کاربری %(username)s لاگین هستید، ولی اجازه ویرایش این صفحه را ندارید. "
-"آیا مایل به ورود با کاربر دیگری هستید؟"
 
-#: admin_theme/templates/admin/login.html:59
-msgid "Forgotten your password or username?"
-msgstr "نام کاربری یا رمز عبور خود را فراموش کرده اید؟"
-
-#: admin_theme/templates/admin/login.html:63
-msgid "Log in"
-msgstr "ورود"
-
-#: admin_theme/templates/admin/nav_sidebar.html:2
-msgid "Toggle navigation"
-msgstr "تغییر منو"
-
-#: admin_theme/templates/admin/widgets/clearable_file_input_custom.html:17
-msgid "image will be visible to the public after verification"
-msgstr "تصویر پس از تایید قابل مشاهده خواهد بود"
-
-#: admin_theme/templates/user_profile.html:20
-msgid "submit"
-msgstr "ارسال"
-
-#: admin_theme/templatetags/fa_calendar.py:237
-#: admin_theme/templatetags/fa_calendar.py:445
+#: .\admin_theme\templatetags\fa_calendar.py:237
+#: .\admin_theme\templatetags\fa_calendar.py:445
 msgid "Farvardin"
 msgstr "فروردین"
 
-#: admin_theme/templatetags/fa_calendar.py:238
-#: admin_theme/templatetags/fa_calendar.py:446
+#: .\admin_theme\templatetags\fa_calendar.py:238
+#: .\admin_theme\templatetags\fa_calendar.py:446
 msgid "Ordibehesht"
 msgstr "اردیبهشت"
 
-#: admin_theme/templatetags/fa_calendar.py:239
-#: admin_theme/templatetags/fa_calendar.py:447
+#: .\admin_theme\templatetags\fa_calendar.py:239
+#: .\admin_theme\templatetags\fa_calendar.py:447
 msgid "Khordad"
 msgstr "خرداد"
 
-#: admin_theme/templatetags/fa_calendar.py:240
-#: admin_theme/templatetags/fa_calendar.py:448
+#: .\admin_theme\templatetags\fa_calendar.py:240
+#: .\admin_theme\templatetags\fa_calendar.py:448
 msgid "Tir"
 msgstr "تیر"
 
-#: admin_theme/templatetags/fa_calendar.py:241
-#: admin_theme/templatetags/fa_calendar.py:449
+#: .\admin_theme\templatetags\fa_calendar.py:241
+#: .\admin_theme\templatetags\fa_calendar.py:449
 msgid "Mordad"
 msgstr "مرداد"
 
-#: admin_theme/templatetags/fa_calendar.py:242
-#: admin_theme/templatetags/fa_calendar.py:450
+#: .\admin_theme\templatetags\fa_calendar.py:242
+#: .\admin_theme\templatetags\fa_calendar.py:450
 msgid "Shahrivar"
 msgstr "شهریور"
 
-#: admin_theme/templatetags/fa_calendar.py:243
-#: admin_theme/templatetags/fa_calendar.py:451
+#: .\admin_theme\templatetags\fa_calendar.py:243
+#: .\admin_theme\templatetags\fa_calendar.py:451
 msgid "Mehr"
 msgstr "مهر"
 
-#: admin_theme/templatetags/fa_calendar.py:244
-#: admin_theme/templatetags/fa_calendar.py:452
+#: .\admin_theme\templatetags\fa_calendar.py:244
+#: .\admin_theme\templatetags\fa_calendar.py:452
 msgid "Aban"
 msgstr "آبان"
 
-#: admin_theme/templatetags/fa_calendar.py:245
-#: admin_theme/templatetags/fa_calendar.py:453
+#: .\admin_theme\templatetags\fa_calendar.py:245
+#: .\admin_theme\templatetags\fa_calendar.py:453
 msgid "Azar"
 msgstr "آذر"
 
-#: admin_theme/templatetags/fa_calendar.py:246
-#: admin_theme/templatetags/fa_calendar.py:454
+#: .\admin_theme\templatetags\fa_calendar.py:246
+#: .\admin_theme\templatetags\fa_calendar.py:454
 msgid "Dey"
 msgstr "دی"
 
-#: admin_theme/templatetags/fa_calendar.py:247
-#: admin_theme/templatetags/fa_calendar.py:455
+#: .\admin_theme\templatetags\fa_calendar.py:247
+#: .\admin_theme\templatetags\fa_calendar.py:455
 msgid "Bahman"
 msgstr "بهمن"
 
-#: admin_theme/templatetags/fa_calendar.py:248
-#: admin_theme/templatetags/fa_calendar.py:456
+#: .\admin_theme\templatetags\fa_calendar.py:248
+#: .\admin_theme\templatetags\fa_calendar.py:456
 msgid "Esfand"
 msgstr "اسفند"
 
-#: admin_theme/validators.py:31
-msgid "Enter a valid Melli code."
-msgstr "کدملی معتبر وارد کنید."
+#~ msgid "Authentication and Authorization"
+#~ msgstr "مدیریت کاربران"
 
-#: admin_theme/validators.py:37
-msgid "Enter a valid input."
-msgstr "مقدار ورودی صحیح وارد کنید"
+#~ msgid "Home"
+#~ msgstr "خانه"
 
-#: admin_theme/validators.py:48
-msgid "Enter a valid Phone number."
-msgstr "شماره تلفن صحیح وارد کنید"
+#~ msgid "Site administration"
+#~ msgstr "مدیریت سایت"
 
-#: admin_theme/validators.py:59
-msgid "Enter a valid mobile number."
-msgstr "شماره موبایل صحیح وارد کنید"
+#~ msgid "Rials"
+#~ msgstr "ریال"
 
-#: admin_theme/validators.py:68
-msgid "Enter a valid birth date."
-msgstr "تاریخ تولد صحیح وارد کنید"
+#~ msgid "register date"
+#~ msgstr "تاریخ ثبت"
 
-#: admin_theme/validators.py:79
-msgid "Enter a valid postcode."
-msgstr "کدپستی معتبر وارد کنید."
+#~ msgid "creation date"
+#~ msgstr "تاریخ ایجاد"
 
-#: admin_theme/views.py:77
-msgid "Profile details updated"
-msgstr "اطلاعات پروفایل بروز شد"
+#~ msgid "create date"
+#~ msgstr "تاریخ ایجاد"
+
+#~ msgid "modify date"
+#~ msgstr "تاریخ ویرایش"
+
+#~ msgid "expire date"
+#~ msgstr "تاریخ انقضا"
+
+#~ msgid "publish date"
+#~ msgstr "تاریخ انتشار"
+
+#~ msgid "send date"
+#~ msgstr "تاریخ ارسال"
+
+#~ msgid "sent date"
+#~ msgstr "تاریخ ارسال"
+
+#~ msgid "receive date"
+#~ msgstr "تاریخ دریافت"
+
+#~ msgid "payment date"
+#~ msgstr "تاریخ پرداخت"
+
+#~ msgid "date"
+#~ msgstr "تاریخ"
+
+#~ msgid "end date"
+#~ msgstr "تاریخ پایان"
+
+#~ msgid "start date"
+#~ msgstr "تاریخ شروع"
+
+#~ msgid "start date time"
+#~ msgstr "تاریخ شروع"
+
+#~ msgid "end date time"
+#~ msgstr "تاریخ پایان"
+
+#~ msgid "active"
+#~ msgstr "فعال"
+
+#~ msgid "uuid"
+#~ msgstr "کد یکتا"
+
+#~ msgid "profile image"
+#~ msgstr "تصویر پروفایل"
+
+#~ msgid "profile image approved"
+#~ msgstr "تصویر پروفایل تایید شده"
+
+#~ msgid "national id"
+#~ msgstr "کد ملی"
+
+#~ msgid "national id image"
+#~ msgstr "تصویر کارت ملی"
+
+#~ msgid "mobile number"
+#~ msgstr "شماره موبایل"
+
+#~ msgid "biography"
+#~ msgstr "بیوگرافی"
+
+#~ msgid "Address"
+#~ msgstr "آدرس"
+
+#~ msgid "user profile"
+#~ msgstr "پروفایل کاربر"
+
+#~ msgid "user profiles"
+#~ msgstr "پروفایل کاربران"
+
+#~ msgid "You don’t have permission to view or edit anything."
+#~ msgstr "شما اجازه مشاهده یا ویرایش ندارید"
+
+#, python-format
+#~ msgid "Add %(name)s"
+#~ msgstr "افزودن %(name)s"
+
+#~ msgid "Please correct the error below."
+#~ msgstr "لطفا خطای زیر را رفع نمایید."
+
+#~ msgid "Please correct the errors below."
+#~ msgstr "لطفا خطاهای زیر را رفع نمایید."
+
+#~ msgid "View on site"
+#~ msgstr "مشاهده سایت"
+
+#~ msgid "Filter"
+#~ msgstr "فیلتر"
+
+#~ msgid "Clear all filters"
+#~ msgstr "برداشتن همه فیلترها"
+
+#~ msgid "Delete"
+#~ msgstr "حذف"
+
+#, python-format
+#~ msgid ""
+#~ "Deleting the %(object_name)s '%(escaped_object)s' would result in "
+#~ "deleting related objects, but your account doesn't have permission to "
+#~ "delete the following types of objects:"
+#~ msgstr ""
+#~ "با حذف %(object_name)s '%(escaped_object)s' تمام موارد وابسته حذف می "
+#~ "شوند، ولی دسترسی شما اجازه حذف موارد زیر را ندارد:"
+
+#, python-format
+#~ msgid ""
+#~ "Deleting the %(object_name)s '%(escaped_object)s' would require deleting "
+#~ "the following protected related objects:"
+#~ msgstr ""
+#~ "حذف %(object_name)s '%(escaped_object)s' نیاز به حذف موارد محافظت شده زیر "
+#~ "را دارد:"
+
+#, python-format
+#~ msgid ""
+#~ "Are you sure you want to delete the %(object_name)s \"%(escaped_object)s"
+#~ "\"? All of the following related items will be deleted:"
+#~ msgstr ""
+#~ "آیا از حذف %(object_name)s \"%(escaped_object)s\" مطمين هستید؟ تمام موارد "
+#~ "وابسته زیر با آن حذف می شوند:"
+
+#~ msgid "Objects"
+#~ msgstr "موارد"
+
+#~ msgid "Yes, I’m sure"
+#~ msgstr "بله ، مطمئن هستم"
+
+#~ msgid "No, take me back"
+#~ msgstr "نه ، برگردیم عقب"
+
+#~ msgid "Change"
+#~ msgstr "تغییر"
+
+#~ msgid "View"
+#~ msgstr "نمایش"
+
+#~ msgid "Delete?"
+#~ msgstr "حذف؟"
+
+#, python-format
+#~ msgid " By %(filter_title)s "
+#~ msgstr "%(filter_title)s"
+
+#~ msgid "Summary"
+#~ msgstr "خلاصه"
+
+#, python-format
+#~ msgid ""
+#~ "You are authenticated as %(username)s, but are not authorized to access "
+#~ "this page. Would you like to login to a different account?"
+#~ msgstr ""
+#~ "شما با کاربری %(username)s لاگین هستید، ولی اجازه ویرایش این صفحه را "
+#~ "ندارید. آیا مایل به ورود با کاربر دیگری هستید؟"
+
+#~ msgid "Forgotten your password or username?"
+#~ msgstr "نام کاربری یا رمز عبور خود را فراموش کرده اید؟"
+
+#~ msgid "Log in"
+#~ msgstr "ورود"
+
+#~ msgid "Toggle navigation"
+#~ msgstr "تغییر منو"
+
+#~ msgid "image will be visible to the public after verification"
+#~ msgstr "تصویر پس از تایید قابل مشاهده خواهد بود"
+
+#~ msgid "submit"
+#~ msgstr "ارسال"
+
+#~ msgid "Enter a valid Melli code."
+#~ msgstr "کدملی معتبر وارد کنید."
+
+#~ msgid "Enter a valid input."
+#~ msgstr "مقدار ورودی صحیح وارد کنید"
+
+#~ msgid "Enter a valid Phone number."
+#~ msgstr "شماره تلفن صحیح وارد کنید"
+
+#~ msgid "Enter a valid mobile number."
+#~ msgstr "شماره موبایل صحیح وارد کنید"
+
+#~ msgid "Enter a valid birth date."
+#~ msgstr "تاریخ تولد صحیح وارد کنید"
+
+#~ msgid "Enter a valid postcode."
+#~ msgstr "کدپستی معتبر وارد کنید."
+
+#~ msgid "Profile details updated"
+#~ msgstr "اطلاعات پروفایل بروز شد"

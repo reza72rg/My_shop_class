@@ -65,16 +65,16 @@
                                         {{item.product}}{% if item.monetary_option %} - {{item.monetary_option}}{% endif %}
                                     </h3>
                                 </td>
-                                <td style="width: 40px; align-items: center;"><button class="checkout-btn-plus" data-href="{% url 'eshop:cart_item_plus' item.id %}" style="background-color: #dcffff; color: black;"></button></td>
+                                <td style="width: 40px; align-items: center;"><button class="checkout-btn-plus" data-href="{% url 'cart_item_plus' item.id %}" style="background-color: #dcffff; color: black;"></button></td>
                                 <td style="width: 40px; text-align: center;">{{item.count|intcomma:False|to_persian_number}}</td>
-                                <td style="width: 40px; align-items: center;"><button class="checkout-btn-minus" data-href="{% url 'eshop:cart_item_minus' item.id %}" style="background-color: #ffdcdc; color: black;"></button></td>
+                                <td style="width: 40px; align-items: center;"><button class="checkout-btn-minus" data-href="{% url 'cart_item_minus' item.id %}" style="background-color: #ffdcdc; color: black;"></button></td>
                                 <td style="max-width: 150px;">
                                     {% trans 'one item price' %}: {{item.price|intcomma:False|to_persian_number}} {% get_currency %}
                                 </td>
                                 <td style="max-width: 150px;">
                                     {% widthratio item.price 1 item.count as ratio %}
                                     {% trans 'total items price' %}: {{ratio|intcomma:False|to_persian_number}} {% get_currency %}</td>
-                                <td style="width: 50px;"><button class="checkout-btn-remove" data-href="{% url 'eshop:cart_item_delete' item.id %}" style="background-color: #ffdcdc; color: black;"></button></td>
+                                <td style="width: 50px;"><button class="checkout-btn-remove" data-href="{% url 'delete_cart_item' item.id %}" style="background-color: #ffdcdc; color: black;"></button></td>
                             </tr>
                             {% endfor %}
                             <tr>
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col justify-content-center" style="display: flex;">
-                                        <a href="" class="selenium-next-step-shipping">
+                                        <a href="{% url 'shipp_payment' %}" class="selenium-next-step-shipping">
                                             <div class="parent-btn continue-payment">
                                                 <button class="dk-btn dk-btn-info" style="padding: 18px 50px">
                                                     <i class="fa fa-shopping-basket"></i>

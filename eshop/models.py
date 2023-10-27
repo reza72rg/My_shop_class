@@ -1,6 +1,6 @@
 from PIL import Image
 from io import BytesIO
-
+from eshop.validators import validate_postcode
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -301,6 +301,26 @@ class CartItem(MainModel):
     def __str__(self):
         return f"{str(self.cart)} - {self.product} - {self.count}"
 
+class ShippingAddress(MainModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
+    title = models.CharField(max_length=100, verbose_name=_("address title"))
+    receiver = models.CharField(max_length=100, verbose_name=_("receiver name and family"))
+    phone = models.CharField(_("phone"), max_length=30, blank=True, null=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, verbose_name=_("state"))
+    city = models.CharField(max_length=100, verbose_name=_("city"))
+    address = models.TextField(_("address"))
+    postcode = models.CharField(max_length=10, verbose_name=_("postcode"), validators=[validate_postcode])
+    description = models.TextField(_("description"), blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.title)
+
+    def __str__(self):
+        return str(self.title)
+
+    class Meta:
+        verbose_name = _("shipping address")
+        verbose_name_plural = _("shipping addresses")
 
 class ShippingStatus(MainModel):
     """set shipping status fields"""
