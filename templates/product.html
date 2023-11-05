@@ -553,7 +553,7 @@ $(document).ready(function() {
          }
       })
       $('#goto_login').click(function(){
-         window.location = "/login/";
+         window.location = "{% url 'accounts:login' %}";
       });
       $('#add_to_cart').click(function(){
          $.ajax({

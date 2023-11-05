@@ -164,8 +164,7 @@ form .aligned table p {
 }
 
 .colM .aligned .vLargeTextField, .colM .aligned .vXMLLargeTextField {
-    max-width: 610px;
-    width: 100%;
+    width: 610px;
 }
 
 .checkbox-row p.help,
@@ -355,7 +354,7 @@ body.popup .submit-row {
 }
 
 .vIntegerField {
-    width: 10em;
+    width: 5em;
 }
 
 .vBigIntegerField {
@@ -521,38 +520,4 @@ form .related-widget-wrapper ul {
 
 .clearable-file-input input {
     margin-top: 0;
-}
-
-.content-subtitle {
-    font-weight: bold;
-}
-
-.content-header {
-    border-radius: 10px;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 40%), 0 2px 4px -1px rgb(0 0 0 / 40%);
-    margin: 10px;
-    padding: 10px;
-    margin-bottom: -45px;
-    background: var(--primary);
-    color: var(--header-link-color);
-}
-
-.sooma-ltr {
-    direction: ltr;
-}
-
-.sooma-rtl {
-    direction: rtl;
-}
-
-div.form-row.field-description > div > label {
-    /*display: none;*/
-}
-
-fieldset.module.wide > h2 {
-    margin-top: 10px !important;
-}
-
-div.inline-related,.has_original,.dynamic-tourparticipant_set {
-    margin-top: 60px;
 }

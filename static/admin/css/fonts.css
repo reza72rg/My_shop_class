@@ -1,27 +1,20 @@
-/* fallback */
 @font-face {
-  font-family: 'Material Icons Round';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/material/material.woff2') format('woff2');
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Bold-webfont.woff');
+    font-weight: 700;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: Yekan;
-  src: url('../fonts/yekan/Yekan.eot');
-  src: url('../fonts/yekan/Yekan.eot?#iefix') format('FontName-opentype'),
-       url('../fonts/yekan/Yekan.woff') format('woff'),
-       url('../fonts/yekan/Yekan.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular-webfont.woff');
+    font-weight: 400;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: Vazir;
-  src: url('../fonts/vazir/Vazir.eot');
-  src: url('../fonts/vazir/Vazir.eot?#iefix') format('FontName-opentype'),
-       url('../fonts/vazir/Vazir.woff') format('woff'),
-       url('../fonts/vazir/Vazir.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Light-webfont.woff');
+    font-weight: 300;
+    font-style: normal;
 }

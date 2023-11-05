@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&@84c@1847)8r_5_1l1ii-_arejoifo@8d&4j@39ru55i49=5&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mptt',
     'ckeditor',
     'ckeditor_uploader',
+    'accounts.apps.AccountsConfig'
     
 ]
 
