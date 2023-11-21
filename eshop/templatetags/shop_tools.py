@@ -87,7 +87,7 @@ def cart_total_price(cart_id):
 @register.simple_tag
 def cart_total_price_with_tax(cart_id, tax, discount_price):
     c = Cart.objects.get(id=cart_id)
-    return to_persian_number(intcomma(CartItem.objects.filter(cart=c).annotate(total_field_price=F('count') * F('price')).aggregate(Sum("total_field_price"))["total_field_price__sum"] - discount_price + tax, False))
+    return to_persian_number(intcomma(CartItem.objects.filter(cart=c).annotate(total_field_price=F('count') * F('price')).aggregate(Sum("total_field_price"))["total_field_price__sum"]- discount_price + tax, False))
 
 
 

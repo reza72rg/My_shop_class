@@ -1,8 +1,25 @@
 from django.contrib import admin
+from django.http.request import HttpRequest
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from mptt.admin import MPTTModelAdmin
 
 from eshop.models import Category, Brand, PaymentMethod, ShippingMethod, Product, ProductImage, ProductProperty, \
-    ProductMonetaryOption, Setting, Discount, Cart, CartItem, ShippingCost, PaymentStatus, DiscountCode, ShippingStatus
+    ProductMonetaryOption, Setting, Discount, Cart, CartItem, ShippingCost, PaymentStatus, DiscountCode, ShippingStatus, \
+    Factor, FactorItem ,Smsverificationcode
+
+
+
+@admin.register(Smsverificationcode)
+class SmsverificationcodeAdmin(admin.ModelAdmin):
+    def get_fields(self, request, obj=None):
+        return ["sms_verification_uuid", "mobile", "activation_code"]
+
+    def get_list_display(self, request):
+        return ["sms_verification_uuid", "mobile", "activation_code"]
+
+    def get_search_fields(self, request):
+        return ["sms_verification_uuid", "mobile", "activation_code"]
 
 
 # from eshop.models import Publisher
@@ -76,7 +93,8 @@ class DiscountCodeAdmin(admin.ModelAdmin):
 
     def get_list_display(self, request):
         return ["code", "percent"]
-
+    
+        
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
@@ -160,7 +178,7 @@ class ShippingCostAdmin(admin.ModelAdmin):
 
     def get_fields(self, request, obj=None):
         fields = super().get_fields(request)
-        fields = ("title", "states", "from_weight", "to_weight", "price", "description",) + fields
+        fields = ["title", "states", "from_weight", "to_weight", "price", "description"] + fields
         return fields
 
     def get_search_fields(self, request):
@@ -254,3 +272,50 @@ class ShippingStatusAdmin(admin.ModelAdmin):
         ) + list_display
         return list_display
 
+class FactorItemsInline(admin.TabularInline):
+    model = FactorItem
+    fields = ["product", "count"]
+    extra = 1
+    def has_delete_permission(self, request,obj= None):
+        return False
+    def has_add_permission(self, request, obj= None):
+        return False
+    def has_change_permission(self, request, obj= None):
+        return False
+ 
+
+@admin.register(Factor)
+class FactorAdmin(admin.ModelAdmin):
+    inlines = [FactorItemsInline]
+    def print_button(self, obj):
+        if obj:
+            return mark_safe("<a class='btn btn-sm' style='background-color: #369; color: white;' href={}>چاپ فاکتور</a>"
+                             .format(reverse("print_factor", kwargs={"factor_id": obj.uuid})))
+    print_button.short_description = " "
+    print_button.allow_tags = True
+
+
+    def get_fields(self, request, obj=None):
+        return ("uuid", "user", "price", "value_added_tax", "discount_code", "discount_price",
+                "payment_method", "payment_status", "payment_tracking_code", "customer_comment",
+                "shipping_method", "shipping_cost", "final_price", "shipping_status", "shipping_tracking_code",
+                "name_family", "phone_number", "state", "city", "address", "post_code")
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = super().get_readonly_fields(request, obj)
+        if obj:
+            if obj.payment_method.code == 1:
+                readonly_fields += ("uuid", "user", "price", "value_added_tax", "discount_code", "discount_price",
+                "payment_method", "payment_status", "payment_tracking_code", "customer_comment",
+                "shipping_method", "shipping_cost", "final_price", "shipping_status", "shipping_tracking_code",
+                "name_family", "phone_number", "state", "city", "address", "post_code")
+            else:
+                readonly_fields+= ("uuid", "user", "price", "value_added_tax", "discount_code", "discount_price",
+                "payment_method", "payment_tracking_code", "customer_comment",
+                "shipping_method", "shipping_cost", "final_price", "shipping_status", "shipping_tracking_code",
+                "name_family", "phone_number", "state", "city", "address", "post_code")
+        return readonly_fields
+
+    def get_list_display(self, request):
+        return ("uuid", "user", "payment_method", "payment_status", "final_price", "shipping_method", "shipping_status",
+                "print_button")

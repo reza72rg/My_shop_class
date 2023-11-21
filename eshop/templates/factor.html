@@ -1,0 +1,309 @@
+{% extends 'base.html' %} {% load static i18n fa_calendar humanize shop_tools %}
+{% block title %}{% trans 'factor' %}{% endblock %}
+{% block extra_head %}
+<link href="{% static 'theme1/style/owl.carousel.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/owl.theme.default.min.css' %}" rel="stylesheet" />
+<link href="{% static 'theme1/style/cart.css' %}" rel="stylesheet" />
+<style>
+.btn-single {
+    color: white;
+    display: inline-block;
+    margin: auto !important;
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+    background-color: #009688;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.2s;
+}
+#internet_pay {
+    text-decoration: none;
+}
+.bank-logo {
+    cursor: pointer;
+    padding: 7px;
+}
+/* HIDE RADIO */
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+  outline: 3px solid rgb(12, 77, 151);
+}
+</style>
+{% endblock %}
+{% block content %}
+{% if not factor %}
+<div class="cart default">
+    <div class="container text-center">
+        <div class="cart-empty">
+            <div class="cart-empty-icon">
+                <i style="font-size: 5rem; color: gray;" class="fa fa-clipboard-list"></i>
+            </div>
+            <div class="cart-empty-title">{{error}}</div>
+            <div class="parent-btn">
+                {% if not request.user.is_authenticated %}
+                <a href="/login/" class="dk-btn dk-btn-success">
+                    {% trans 'login to your account' %}
+                    <i class="fa fa-sign-in"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="mb-5">
+    <div class="container">
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'factor id' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.uuid}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'price' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.price|intcomma:False|to_persian_number}} {% get_currency %}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'value added tax' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.value_added_tax|intcomma:False|to_persian_number}} {% get_currency %}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'discount code' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.discount_code}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'discount price' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.discount_price|intcomma:False|to_persian_number}} {% get_currency %}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'total weight' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.total_weight|intcomma:False|to_persian_number}} {% trans 'grams' %}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'shipping method' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.shipping_method}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'shipping cost' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.shipping_cost|intcomma:False|to_persian_number}} {% get_currency %}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'final price' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.final_price|intcomma:False|to_persian_number}} {% get_currency %}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'payment method' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.payment_method}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'payment status' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.payment_status}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'payment tracking code' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.payment_tracking_code}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'shipping status' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.shipping_status}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'shipping tracking code' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.shipping_tracking_code}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'name family' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.name_family}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'phone number' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.phone_number}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'state' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.state}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'city' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.city}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'address' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.address}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'post code' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.post_code}}
+            </div>
+        </div>
+        <div class="row mb-2 mt-2">
+            <div class="col" style="text-align: end;">
+                {% trans 'customer comment' %} :
+            </div>
+            <div class="col" style="text-align: start;">
+                {{factor.customer_comment}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive checkout-content default" style="width: 400px; text-align: center; margin:auto; margin-bottom: 40px;">
+    <h6 class="ml-4 mt-2">{% trans 'products' %}</h6>
+    <table class="table" style="margin-bottom: 0px;">
+        <tbody>
+            {% for item in factor_items %}
+            <tr class="checkout-item" style="border-bottom: 1px solid #eaeaea;">
+                <td>
+                    <h3 class="checkout-title">
+                        {{item.product}}{% if item.monetary_option %} - {{item.monetary_option}}{% endif %}
+                    </h3>
+                </td>
+                <td style="min-width: 40px; text-align: center;">
+                    <h3 class="checkout-title">{% trans 'count' %}: {{item.count|intcomma:False|to_persian_number}}</h3>
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% if factor.payment_method.code == 1 and factor.payment_status.code == 1 %}
+<div style="text-align: center; margin-bottom: 30px;">
+    <form action="/internet-payment/" method="post">
+        {% csrf_token %}
+        <div>
+            <input type="hidden" name="factor_uuid" value="{{factor.uuid}}">
+        {% for name, bank in banks.items %}
+        {% if bank.is_active %}
+            <label>
+                <input type="radio" name="bank" value="{{name}}">
+                <img src="{{bank.logo}}" class="bank-logo m-3" alt="mellat">
+            </label>
+        {% endif %}
+        {% endfor %}
+        </div>
+        <div class="row justify-content-center">
+            <div class="col justify-content-center" style="display: flex;">
+                <a id="internet_pay" href="javascript:void(0);" class="selenium-next-step-shipping">
+                    <div class="parent-btn continue-payment">
+                        <button type="submit" class="dk-btn dk-btn-info">
+                            <i class="fa fa-credit-card"></i>
+                            {% trans 'internet payment' %}
+                        </button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endif %}
+{% endif %}
+<script>
+    $(document).ready(function(){
+        $(".checkout-btn-remove").on("click", function(){
+            window.location = $(this).data("href");
+        });
+        $(".checkout-btn-minus").on("click", function(){
+            window.location = $(this).data("href");
+        });
+        $(".checkout-btn-plus").on("click", function(){
+            window.location = $(this).data("href");
+        });
+        $("input:radio[name=bank]:first").attr('checked', true);
+    });
+</script>
+{% endblock %}
+{% block script %}
+{% endblock %}

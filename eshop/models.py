@@ -1,6 +1,7 @@
+import uuid
 from PIL import Image
 from io import BytesIO
-from eshop.validators import validate_postcode
+
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -11,6 +12,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 from admin_theme.models import State
 from admin_theme.tools import create_code
+from eshop.validators import validate_postcode
 from main.tools import UploadToPathAndRename
 from django.utils.safestring import mark_safe
 from django.conf import settings
@@ -23,6 +25,14 @@ def get_image_field(self):
         if isinstance(v, ImageFieldFile):
             output.append(k)
     return output
+
+
+def create_factor_id():
+    return f"fa{str(uuid.uuid1().int >> 64)[:12]}"
+
+
+def get_random_payment_id():
+    return f"{str(uuid.uuid1().int >> 64)[:12]}"
 
 
 class MainModel(models.Model):
@@ -146,6 +156,28 @@ class ShippingCost(MainModel):
     class Meta:
         verbose_name = _("shipping cost")
         verbose_name_plural = _("shipping costs")
+
+
+class ShippingAddress(MainModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
+    title = models.CharField(max_length=100, verbose_name=_("address title"))
+    receiver = models.CharField(max_length=100, verbose_name=_("receiver name and family"))
+    phone = models.CharField(_("phone"), max_length=30, blank=True, null=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, verbose_name=_("state"))
+    city = models.CharField(max_length=100, verbose_name=_("city"))
+    address = models.TextField(_("address"))
+    postcode = models.CharField(max_length=10, verbose_name=_("postcode"), validators=[validate_postcode])
+    description = models.TextField(_("description"), blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.title)
+
+    def __str__(self):
+        return str(self.title)
+
+    class Meta:
+        verbose_name = _("shipping address")
+        verbose_name_plural = _("shipping addresses")
 
 
 class Product(MainModel):
@@ -301,26 +333,6 @@ class CartItem(MainModel):
     def __str__(self):
         return f"{str(self.cart)} - {self.product} - {self.count}"
 
-class ShippingAddress(MainModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
-    title = models.CharField(max_length=100, verbose_name=_("address title"))
-    receiver = models.CharField(max_length=100, verbose_name=_("receiver name and family"))
-    phone = models.CharField(_("phone"), max_length=30, blank=True, null=True)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, verbose_name=_("state"))
-    city = models.CharField(max_length=100, verbose_name=_("city"))
-    address = models.TextField(_("address"))
-    postcode = models.CharField(max_length=10, verbose_name=_("postcode"), validators=[validate_postcode])
-    description = models.TextField(_("description"), blank=True, null=True)
-
-    def __unicode__(self):
-        return str(self.title)
-
-    def __str__(self):
-        return str(self.title)
-
-    class Meta:
-        verbose_name = _("shipping address")
-        verbose_name_plural = _("shipping addresses")
 
 class ShippingStatus(MainModel):
     """set shipping status fields"""
@@ -379,3 +391,77 @@ class Setting(MainModel):
 
     def __str__(self):
         return str(self.title)
+
+
+class Factor(MainModel):
+    uuid = models.CharField(max_length=20, default=create_factor_id, verbose_name=_("factor id"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
+    price = models.PositiveIntegerField(default=0, verbose_name=_("price"))
+    tax = models.PositiveIntegerField(default=0, verbose_name=_("tax"))
+    value_added_tax = models.PositiveIntegerField(default=0, verbose_name=_("value added tax"))
+    discount_code = models.CharField(default="", max_length=50, verbose_name=_("discount code"))
+    discount_price = models.PositiveIntegerField(default=0, verbose_name=_("discount price"))
+    total_weight = models.PositiveIntegerField(default=0, verbose_name=_("total products weight"))
+    payment_method = models.ForeignKey(PaymentMethod, verbose_name=_("payment method"), on_delete=models.CASCADE)
+    payment_status = models.ForeignKey(PaymentStatus, verbose_name=_("payment status"), on_delete=models.CASCADE)
+    payment_tracking_code = models.CharField(default="", max_length=255, verbose_name=_("payment tracking code"),blank=True, null=True)
+    payment_id = models.PositiveBigIntegerField(_("payment ID"), default=get_random_payment_id)
+    reference_id = models.CharField(_("reference ID"), max_length=100, blank=True, null=True)
+    sales_reference_id = models.CharField(_("saled reference ID"), max_length=100, blank=True, null=True)
+    res_code = models.BigIntegerField("res code", blank=True, null=True)
+    payment_date = models.DateTimeField(_("payment date"), blank=True, null=True)
+    final_price = models.PositiveIntegerField(default=0, verbose_name=_("final price"))
+    shipping_method = models.ForeignKey(ShippingMethod, verbose_name=_("shipping method"),on_delete=models.CASCADE)
+    shipping_cost = models.PositiveIntegerField(default=0, verbose_name=_("shipping cost"))
+    shipping_status = models.ForeignKey(ShippingStatus, verbose_name=_("shipping status"),on_delete=models.CASCADE)
+    shipping_tracking_code = models.CharField(default="", max_length=255, verbose_name=_("shipping tracking code"), blank=True, null=True)
+    name_family = models.CharField(max_length=255, verbose_name=_("name family"))
+    phone_number = models.CharField(max_length=255, verbose_name=_("phone number"))
+    state = models.CharField(max_length=255, verbose_name=_("state"))
+    city = models.CharField(max_length=255, verbose_name=_("city"))
+    address = models.CharField(max_length=255, verbose_name=_("address"))
+    post_code = models.CharField(max_length=255, verbose_name=_("post code"))
+    customer_comment = models.CharField(max_length=255, verbose_name=_("customer comment"), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("factor")
+        verbose_name_plural = _("factors")
+
+    def __unicode__(self):
+        return str(self.uuid)
+
+    def __str__(self):
+        return str(self.uuid)
+
+
+class FactorItem(MainModel):
+    factor = models.ForeignKey(Factor, on_delete=models.CASCADE, verbose_name=_("factor"))
+    product = models.CharField(max_length=255, verbose_name=_("product"))
+    monetary_option = models.CharField(max_length=255, verbose_name=_("monetary option"), default="", blank=True, null=True)
+    count = models.PositiveIntegerField(default=1, verbose_name=_("count"), validators=[MinValueValidator(1)])
+    price = models.PositiveIntegerField(default=0, verbose_name=_("price"))
+
+    class Meta:
+        verbose_name = _("factor item")
+        verbose_name_plural = _("factor items")
+
+    def __unicode__(self):
+        return str("")
+
+    def __str__(self):
+        return str("")
+def create_uuid():
+    return str(uuid.uuid1().int>> 64)
+
+class Smsverificationcode(MainModel):
+    sms_verification_uuid = models.CharField(_("mobile verification uuid"),max_length=48,default=create_uuid)
+    mobile = models.CharField(_("mobile"),max_length=30)
+    activation_code = models.PositiveIntegerField(_("activation code"))
+    
+    def __unicode__(self):
+        return str(self.mobile)
+    
+    def __str__(self):
+        return str(self.mobile)
+    
+

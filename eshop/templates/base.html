@@ -1,0 +1,258 @@
+{% load i18n static tags shop_tools %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"fa-ir" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+    <head>
+    <title>{% get_setting "site_title" %}&nbsp;|&nbsp;{% block title %}{% endblock %}</title>
+    <meta name="enamad" content="230785" />
+    <link rel="shortcut icon" href='{% get_setting "site_icon" %}'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/farsifonts.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/fontawesome.all.min.js' %}"></script>
+    <script src="{% static 'js/jquery-confirm.min.js' %}"></script>
+    {% block extra_head %}{% endblock %}
+    {% block responsive %}
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+        {% if LANGUAGE_BIDI %}
+<!--        <link rel="stylesheet" type="text/css" href="{% static 'css/responsive_rtl.css' %}">-->
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/rtl/css/bootstrap-rtl.min.css' %}">
+        {% endif %}
+    <style>
+      .footer .footer-description ul li, .footer .footer-description2 ul li {
+          color: #868686;
+          font-size: 13px;
+      }
+      li {
+          list-style: none;
+      }
+      .footer .footer-description, .footer .footer-description2, .footer .footer-description3 {
+          width: 100%;
+          padding: 10px;
+      }
+      ul {
+          margin: 0;
+          padding: 0;
+      }
+      .footer .footer-description ul li, .footer .footer-description2 ul li {
+          color: #868686;
+          font-size: 13px;
+      }
+      .footer {
+          width: 100%;
+          padding: 10px;
+          background-color: #343A40;
+          background-image: url(/static/img/map-dots.png);
+          background-size: contain;
+          background-position: center center;
+          background-repeat: no-repeat;
+          line-height: 2;
+      }
+      .footer .footer-description2 ul li i {
+          padding-left: 5px;
+          font-size: 12px;
+          color: #a9abaa;
+      }
+      .fa {
+          margin: 5px;
+      }
+      .footer .footer-description ul li:before {
+          content: "\f00c";
+          font-family: "FontAwesome";
+          padding-left: 5px;
+          font-size: 10px;
+          color: #a9abaa;
+      }
+    .puls {
+    	box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+        transform: scale(1);
+        animation: pulse 2s;
+    }
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(255, 233, 0, 0.7);
+        }
+
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(255, 233, 0, 0);
+        }
+
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(255, 233, 0, 0);
+        }
+    }
+    </style>
+    {% endblock %}
+    {% block bots %}<meta name="robots" content="index,follow">{% endblock %}
+    </head>
+    <body style="font-family: 'IRANSans'">
+        <div id="container">
+            <div id="breadcrumbs">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="/"><img height="35px" src="{% get_setting 'site_logo' %}" /></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGeneral" aria-controls="navbarGeneral" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarGeneral">
+                            {% get_categories as cats %}
+                            <ul class="nav navbar-nav mr-auto">
+                              <!-- <li class="nav-item">
+                                <a href="/register/" class=" mybtn nav-link"><i class="fa fa-user-plus" style="margin-left: 7px;"></i>ثبت نام</a>
+                              </li> -->
+                              {% for category in cats %}
+                              <li class="nav-item dropdown">
+                                {% if category.get_children %}
+                                <a class="nav-link dropdown-toggle" href="#" class="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  {{category.title}}
+                                </a>
+                                {% else %}
+                                <a class="nav-link" id="{{category.title}}" href="/category/{{category.title|slugish}}/" class="navbarDropdown" role="button" aria-expanded="false">
+                                  {{category.title}}
+                                </a>
+                                {% endif %}
+                                {% if category.get_children %}
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% for child in category.get_children %}
+                                    <li>
+                                      <a class="dropdown-item" id="{{child.title}}" href="/category/{{child.title|slugish}}/">
+                                        {{child.title}}
+                                      </a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                                {% endif %}
+                              </li>
+                              {% endfor %}
+<!--                              <li class="nav-item dropdown">-->
+<!--                                <a class="nav-link" id="faq" href="/faq/" class="navbarDropdown" role="button" aria-expanded="false">-->
+<!--                                  {% trans 'FAQs' %}-->
+<!--                                </a>-->
+<!--                              </li>-->
+                            </ul>
+                            <div class="form-inline my-2 my-lg-0">
+                                <input id="search_input" class="form-control mr-sm-2" type="search" placeholder="{% trans 'search' %}" aria-label="{% trans 'search' %}">
+                                <button id="search_button" class="btn btn-outline-success my-2 my-sm-0 d-none d-lg-inline-block" type="button"><i class="fa fa-magnifying-glass"></i></button>
+                            </div>
+                            <ul class="nav navbar-nav ml-0">
+                              {% if request.user.is_authenticated %}
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" class="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="fa far fa-user" style="margin-left: 7px;"></i>{% trans 'profile' %}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <li>
+                                    <a class="dropdown-item" id="factors" href="/factors/">
+                                      {% trans 'factors' %}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a class="dropdown-item" id="favorites" href="/favorites/">
+                                      {% trans 'favorites' %}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {% comment %}
+                                      <a class="dropdown-item" id="profile" href="{% url 'shipping_address' %}">
+                                      {% trans 'postal information' %}
+                                    </a>
+                                    {% endcomment %}
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="nav-item">
+                                  <a href="/cart/" class="cart-icon nav-link"><i class="fa fa-cart-arrow-down" style="margin-left: 7px;"></i>{% trans 'cart' %}&nbsp;(<span id="cart_count">{% cart_items_count user %}</span>)</a>
+                              </li>
+                                {% else %}
+                              <li class="nav-item ml-lg-3 mr-lg-2">
+                                <a href="/login/" class="nav-link"><i class="fa far fa-user" style="margin-left: 7px;"></i>{% trans 'sign up/login' %}</a>
+                                {% endif %}
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="container pt-5" style="min-height: 63vh;">
+                <div id="content">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <div class="footer mb-0">
+              <div class="container">
+                <div class="row">
+                   <div class="col-md-4">
+                      <div class="footer-description">
+                         <ul>
+                            <li>تضمین اصالت کالاهای فروخته شده</li>
+                            <li>فروش برند های معتبر</li>
+                            <li>پاسخگویی 24 ساعته</li>
+                            <li>امکان پرداخت آنلاین با کارت بانکی و پرداخت در محل</li>
+                            <li>امکان بازگشت تا یک هفته در صورت عدم رضایت مشتری</li>
+                            <li>خرید آسان و مطمئن</li>
+                            <li>قیمت های مناسب</li>
+                         </ul>
+                      <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/u?id=383466&code=Yjlguf4wZpmcXrBDUO96U6bpxrC0HPRO'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=383466&code=Yjlguf4wZpmcXrBDUO96U6bpxrC0HPRO' alt='' style='cursor:pointer' code='Yjlguf4wZpmcXrBDUO96U6bpxrC0HPRO'></a>
+                      </div>
+                   </div>
+                   <div class="col-md-3">
+                      <div class="footer-description2">
+                         <ul>
+                            <li><i class="fa fa-truck" style="margin-left: 7px;"></i>تحویل پستی سریع</li>
+                            <li><i class="fa fa-plane" style="margin-left: 7px;"></i>ارسال با پست پیشتاز و سفارشی</li>
+                            <li><i class="fa fa-cart-arrow-down" style="margin-left: 7px;"></i>خرید آسان و راحت</li>
+                         </ul>
+                      </div>
+                   </div>
+                   <div class="col-md-5">
+                      <div style="color: #868686; font-size: 13px; margin-top: 15px; margin-right: 7px;">
+                        {% get_setting 'contact_us' as contact_us %}
+                        {{contact_us|safe}}
+                      </div>
+                   </div>
+                </div>
+             </div>
+            </div>
+        </div>
+        <script>
+          function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === name + "=") {
+                        cookieValue = decodeURIComponent(
+                            cookie.substring(name.length + 1)
+                        );
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+          }
+          const csrftoken = getCookie("csrftoken");
+          $("document").ready(function() {
+            $("#search_input").keydown(function(event) {
+              if (event.keyCode === 13) {
+                  $("#search_button").click()
+              }
+            })
+            $("#search_button").click(function() {
+              if ($("#search_input").val().length > 0){
+                window.location = "/search/" + $("#search_input").val().replace(/\ /g, "-") + "/"
+              }
+            })
+          })
+        </script>      
+        {% block script %} {% endblock %}
+    </body>
+</html>
